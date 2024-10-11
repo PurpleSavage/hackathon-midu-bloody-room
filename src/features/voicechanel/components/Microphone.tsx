@@ -65,7 +65,7 @@ export default function Microphone() {
         setIsRecording(false);
       };
     return (
-        <div className="w-full flex justify-center items-center py-5">
+        <div className="w-full flex justify-center items-center py-10">
             {isRecording ? (
             <button
               onClick={stopRecording}

@@ -23,6 +23,7 @@ export async function POST(req: Request){
 
         const transcript: responseWhisperI = await response.json();
         console.log(transcript.text)
+        return NextResponse.json({msg:transcript.text},{status:200})
 
     } catch (error) {
         console.error("Error interno:", error);
