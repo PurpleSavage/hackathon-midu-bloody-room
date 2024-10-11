@@ -4,6 +4,7 @@ import Header from '@/features/landing/components/Header';
 import Scene from '@/features/landing/components/Scene';
 import { nosifer } from '@/fonts/fonts';
 import Image from 'next/image';
+import Link from 'next/link';
 export default function Home() {
   return (
     <div className={`min-h-screen ${style.bg} relative`}> 
@@ -28,11 +29,11 @@ export default function Home() {
               src="/images/pentagram.png"
               alt='pentagram image'
               />
-              <button className={`${nosifer.className} hover:text-white hover:bg-red-800 
+              <Link href="/voicechanel" className={`${nosifer.className} hover:text-white hover:bg-red-800 
               text-red-800 bg-white px-5 py-1 rounded-xl transition-colors tracking-widest`}
               >
                 Get started
-              </button>
+              </Link>
             </div>
           </section>
 
