@@ -1,0 +1,11 @@
+.bg{
+    background-image: url('/images/asylum.jpg');
+  background-size: cover; /* Esto asegura que la imagen ocupe todo el div sin perder calidad */
+  background-position: center; /* Centra la imagen dentro del div */
+  background-repeat: no-repeat; /* Evita que la imagen se repita */
+  width: 100%; /* Ajusta el ancho del div */
+  height: 100vh; 
+}
+.radial {
+  background: radial-gradient(circle, rgba(0, 0, 0, 0) , rgba(0, 0, 0, 0.8) , rgba(0, 0, 0, 1) );
+}
