@@ -12,13 +12,13 @@ export default function Members() {
     <div className="w-full h-[600px] ">
       <Canvas fallback={<div>Sorry, no WebGL supported!</div>} frameloop="always"
           shadows dpr={[1, 1.5]} gl={{ antialias: false }} camera={{ position: [5, 5, 5], fov: 50, near: 0.1, far: 100 }}>
-            <ambientLight intensity={1} />
-            <spotLight position={[0,100, 100]} angle={0.15} penumbra={1} intensity={1} castShadow />
-            <Suspense fallback={<p>Cargando...</p>}>
-                <ZombieModel/>
-            </Suspense>
-            <OrbitControls  enableZoom={false}/>   
-        </Canvas>
+          <ambientLight intensity={1} />
+          <spotLight position={[0,100, 100]} angle={0.15} penumbra={1} intensity={1} castShadow />
+          <Suspense fallback={<p>Cargando...</p>}>
+            <ZombieModel/>
+          </Suspense>
+          <OrbitControls  enableZoom={false}/>   
+      </Canvas>
     </div> 
   )
 }
