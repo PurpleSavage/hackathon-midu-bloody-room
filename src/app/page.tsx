@@ -88,19 +88,6 @@ export default function Home() {
               </motion.p>
             </div>
             <div className='flex items-center justify-center flex-col md:w-2/5 w-full gap-4'>
-              <Image
-              width={300}
-              height={300}
-              unoptimized
-              src="/images/pentagram.png"
-              alt='pentagram image'
-              />
-              <Link href="/voicechanel" className={`${nosifer.className} hover:text-white hover:bg-red-800 
-              text-red-800 bg-white px-5 py-1 rounded-xl transition-colors tracking-widest`}
-              >
-                Get started
-              </Link>
-
               <motion.div
                 initial={{ opacity: 0, scale: 0.6 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -127,10 +114,13 @@ export default function Home() {
                   ease: "easeInOut",
                   delay: 0.3
                 }}
-                className={`${nosifer.className} hover:text-white hover:bg-red-800 
-              text-red-800 z-10 bg-white px-5 py-1 rounded-xl transition-colors tracking-widest`}
+                
               >
-                Get started
+                <Link href="/voicechanel" className={`${nosifer.className} hover:text-white hover:bg-red-800 
+              text-red-800 bg-white px-5 py-1 rounded-xl transition-colors tracking-widest`}
+                >
+                  Get started
+                </Link>
               </motion.button>
             </div>
           </section>
