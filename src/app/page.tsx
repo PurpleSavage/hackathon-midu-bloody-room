@@ -32,7 +32,7 @@ export default function Home() {
                 y: mousePosition.y - 120,
               }}
               transition={{
-                type: 'spring',  // Usamos a tu vieja :v  "spring" para un efecto de retraso
+                type: 'spring',  
                 stiffness: 100,  // Reduzco la rigidez para hacer el retraso más pronunciado
                 damping: 25,     // Aumento el damping para suavizar el movimiento
               }}
@@ -65,7 +65,7 @@ export default function Home() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{
-                      delay: i * 0.2,
+                      delay: i * 0.1,
                       duration: 0.3,
                     }}
                     className={`${nosifer.className} text-6xl font-bold text-red-800 tracking-wide antialiased`}
