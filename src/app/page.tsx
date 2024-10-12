@@ -8,8 +8,8 @@ import { motion } from "framer-motion";
 import GhostSvg from '@/features/landing/Icons/GhostSvg';
 import { useMouseMovement } from '@/features/landing/hooks/PositionGhost';
 import GhostMoveSvg from '@/features/landing/Icons/GhostMoveSvg';
-
-
+import Link from 'next/link';
+import SectionModel from '@/features/landing/components/SectionModel';
 export default function Home() {
   const title = "Welcome to the Bloody room."
   const { mousePosition, isMoving } = useMouseMovement(200, 15);
@@ -31,7 +31,7 @@ export default function Home() {
               }}
               transition={{
                 type: 'spring',  // Usamos a tu vieja :v  "spring" para un efecto de retraso
-                stiffness: 100,  // Reduzco la rigidez para hacer el retraso más pronunciado
+                stiffness: 90,  // Reduzco la rigidez para hacer el retraso más pronunciado
                 damping: 25,     // Aumento el damping para suavizar el movimiento
               }}
             >
@@ -105,19 +105,7 @@ export default function Home() {
                   className='z-10'
                 />
               </motion.div>
-              <motion.button
-                initial={{ opacity: 0, scale: 0.6 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{
-                  duration: 0.3,
-                  ease: "easeInOut",
-                  delay: 0.3
-                }}
-                className={`${nosifer.className} hover:text-white hover:bg-red-800 
-              text-red-800 z-10 bg-white px-5 py-1 rounded-xl transition-colors tracking-widest`}
-              >
-                Get started
-              </motion.button>
+              
             </div>
           </section>
 
@@ -156,7 +144,6 @@ export default function Home() {
               </div>
             </div>
           </section>
-
         </div>
       </div>
     </div>

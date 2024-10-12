@@ -3,11 +3,3 @@ export interface responseWhisperI{
 }
 
 
-export type objtDataResponseGPT={
-    role:string
-    content:string
-}
-export interface responseTextToSpeechI{
-    audioBlob:string;
-    data:objtDataResponseGPT
-}
