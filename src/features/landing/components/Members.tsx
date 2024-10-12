@@ -1,27 +1,24 @@
 'use client'
 import { Canvas} from "@react-three/fiber";
 import { OrbitControls} from '@react-three/drei';
-
-import dynamic from 'next/dynamic';
 import { Suspense } from "react";
+import dynamic from 'next/dynamic';
+const ZombieModel =dynamic(() => import('../components/ZombieModel'), {
+    ssr: false,
+  })
 
-const Model =dynamic(() => import('../components/Model'), {
-  ssr: false,
-})
-export default function Scene() {
+export default function Members() {
   return (
-   
-    <div className="w-full h-[300px]">
+    <div className="w-full h-[600px]">
       <Canvas fallback={<div>Sorry, no WebGL supported!</div>} frameloop="always"
           shadows dpr={[1, 1.5]} gl={{ antialias: false }} camera={{ position: [5, 5, 5], fov: 50, near: 0.1, far: 100 }}>
             <ambientLight intensity={1} />
             <spotLight position={[0,100, 100]} angle={0.15} penumbra={1} intensity={1} castShadow />
             <Suspense fallback={<p>Cargando...</p>}>
-              <Model/> 
+                <ZombieModel/>
             </Suspense>
             <OrbitControls  enableZoom={false}/>   
         </Canvas>
     </div> 
-    
   )
 }

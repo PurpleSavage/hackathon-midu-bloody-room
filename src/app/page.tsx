@@ -5,6 +5,7 @@ import Scene from '@/features/landing/components/Scene';
 import { nosifer } from '@/fonts/fonts';
 import Image from 'next/image';
 import Link from 'next/link';
+import Members from '@/features/landing/components/Members';
 export default function Home() {
   return (
     <div className={`min-h-screen ${style.bg} relative`}> 
@@ -71,6 +72,10 @@ export default function Home() {
                   <Scene/>
                 </div>
               </div>
+          </section>
+
+          <section className='flex items-center justify-center  py-20 px-14 '>
+            <Members/>
           </section>
 
         </div>
