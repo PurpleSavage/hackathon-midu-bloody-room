@@ -74,8 +74,31 @@ export default function Home() {
               </div>
           </section>
 
-          <section className='flex items-center justify-center  py-20 px-14 '>
-            <Members/>
+          <section className='flex flex-col items-center justify-center  py-20 px-14 '>
+            <h3 className={`text-center ${nosifer.className} text-4xl`}>Collaborators</h3>
+            <div className='flex items-center gap-5'>
+              <Members/>
+              <div>
+                <ul className='space-y-4'>
+                  <li className={`${nosifer.className} hover:text-red-800`}>
+                    <a href="https://github.com/PurpleSavage">
+                      PurpleSavage
+                    </a>
+                  </li>
+                  <li className={`${nosifer.className} hover:text-red-800`}>
+                    <a href="https://github.com/Ariano2700">
+                      Ariano2700
+                    </a>
+                  </li>
+                  <li className={`${nosifer.className} hover:text-red-800`}
+                  >
+                    <a href="https://github.com/DeyCasGuerrero">
+                      DeyCasGuerrero
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </section>
 
         </div>
