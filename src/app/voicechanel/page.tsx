@@ -38,7 +38,7 @@ export default function VoiceChanel() {
       />
     
 
-      <div className="absolute z-10 flex flex-col  bottom-0 right-0 left-0 top-0">
+      <div className="absolute z-10 flex flex-col bottom-0 right-0 left-0 top-0 min-h-screen overflow-y-auto">
         <Header/>
         <div className="grow flex justify-center items-center">
           <UploadBtn micData={micData} setMicData={handleMicData}/>
