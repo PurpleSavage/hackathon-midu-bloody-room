@@ -1,9 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
-import "./style.css";
+import style from '../css/voicecss.module.css'
 import { CldUploadWidget } from "next-cloudinary";
 import { ExtendedCloudinaryUploadWidgetResults } from "@/interfaces/cldUploadResults";
-import UploadedPhotoGenerated from "../UploadedPhotoGenerated";
+import UploadedPhotoGenerated from "./UploadedPhotoGenerated";
 
 function UploadBtn({
   micData,
@@ -13,7 +13,7 @@ function UploadBtn({
   setMicData: (data: string) => void;
 }) {
   const [resultData, setResultData] =
-    useState<ExtendedCloudinaryUploadWidgetResults | null>(null);
+  useState<ExtendedCloudinaryUploadWidgetResults | null>(null);
 
   const [showUploadedPhoto, setShowUploadedPhoto] = useState(true);
 
@@ -23,7 +23,7 @@ function UploadBtn({
       setShowUploadedPhoto(false); // Oculta UploadedPhotoGenerated cuando cambia el resultData
       setMicData("");
     }
-  }, [resultData]);
+  }, [resultData,setMicData]);
 
   // Mostrar UploadedPhotoGenerated nuevamente cuando micData cambie
   useEffect(() => {
@@ -31,6 +31,10 @@ function UploadBtn({
       setShowUploadedPhoto(true);
     }
   }, [micData]);
+
+
+
+  
   return (
     <section className="flex flex-col gap-10 items-center justify-center">
       <div
@@ -65,10 +69,10 @@ function UploadBtn({
         )}
       </div>
 
-      <div className="input-div">
+      <div className={`${style.inputDiv}`}>
         <CldUploadWidget
           options={{
-            sources: ["local", "camera", "google_drive", "dropbox"],
+            sources: ["local"],
             multiple: false,
             maxFiles: 1,
           }}
@@ -104,7 +108,7 @@ function UploadBtn({
                   strokeWidth="2"
                   fill="none"
                   stroke="currentColor"
-                  className="icon ml-2 text-gray-500"
+                  className={`${style.icon} ml-2 text-gray-500`}
                 >
                   <polyline points="16 16 12 12 8 16"></polyline>
                   <line y2="21" x2="12" y1="12" x1="12"></line>

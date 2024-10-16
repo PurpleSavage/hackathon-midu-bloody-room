@@ -12,12 +12,14 @@ function UploadedPhotoGenerated({ id, micPrompt }: Props) {
   const [retryCount, setRetryCount] = useState(0); // Estado para llevar cuenta de los reintentos
   const [imageUrl, setImageUrl] = useState<string | null>(null);
 
-  if (!id) return null;
+
 
   const maxRetries = 3; // Número máximo de reintentos
-
+ 
   // Generar la URL de Cloudinary con el prompt para reemplazo de fondo
   useEffect(() => {
+    if (!id) return 
+    console.log("hola")
     const url = getCldImageUrl({
       src: id,
       replaceBackground: micPrompt,

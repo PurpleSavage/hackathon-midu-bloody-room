@@ -2,8 +2,8 @@
 import Microphone from "@/features/voicechanel/components/Microphone"
 import Header from "@/features/landing/components/Header"
 import Image from "next/image"
-import UploadBtn from "@/features/voicechanel/components/upload/UploadBtn"
-import UploadedPhoto from "@/features/voicechanel/components/UploadedPhotoGenerated"
+import UploadBtn from "@/features/voicechanel/components/UploadBtn"
+// import UploadedPhoto from "@/features/voicechanel/components/UploadedPhotoGenerated"
 import { useState } from "react"
 export default function VoiceChanel() {
   const [micData, setMicData] = useState<string>("");
@@ -41,9 +41,10 @@ export default function VoiceChanel() {
       <div className="absolute z-10 flex flex-col  bottom-0 right-0 left-0 top-0">
         <Header/>
         <div className="grow flex justify-center items-center">
-          <UploadBtn micData={micData} setMicData={handleMicData}/>
+          {/* aquí deberias mapear las imágenes */}
           {/* <UploadedPhoto/> */}
         </div>
+        <UploadBtn micData={micData} setMicData={handleMicData}/>
         <Microphone sendDataToParent={handleMicData}/>
       </div>
     </div>
