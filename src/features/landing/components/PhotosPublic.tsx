@@ -11,7 +11,6 @@ export default function PhotosPublic() {
             const data =await response.json()
             const {photos}=data
             setAllPhotos(photos)
-            console.log(photos)
         }
         allPhotosPublic()
     },[])

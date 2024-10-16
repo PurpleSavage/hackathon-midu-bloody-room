@@ -4,9 +4,10 @@ import Header from "@/features/landing/components/Header"
 import Image from "next/image"
 import UploadBtn from "@/features/voicechanel/components/UploadBtn"
 // import UploadedPhoto from "@/features/voicechanel/components/UploadedPhotoGenerated"
-import { useState } from "react"
+import {useState } from "react"
 export default function VoiceChanel() {
   const [micData, setMicData] = useState<string>("");
+  
   const handleMicData = (data: string) => {
     setMicData(data);
   };
