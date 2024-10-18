@@ -4,12 +4,15 @@ import Header from '@/features/landing/components/Header';
 import Scene from '@/features/landing/components/Scene';
 import { nosifer } from '@/fonts/fonts';
 import Image from 'next/image';
+import Link from 'next/link';
+import Members from '@/features/landing/components/Members';
 import { motion } from "framer-motion";
 import GhostSvg from '@/features/landing/Icons/GhostSvg';
 import { useMouseMovement } from '@/features/landing/hooks/PositionGhost';
 import GhostMoveSvg from '@/features/landing/Icons/GhostMoveSvg';
-import Link from 'next/link';
 import SectionModel from '@/features/landing/components/SectionModel';
+
+
 export default function Home() {
   const title = "Welcome to the Bloody room."
   const { mousePosition, isMoving } = useMouseMovement(200, 15);
@@ -30,8 +33,8 @@ export default function Home() {
                 y: mousePosition.y - 120,
               }}
               transition={{
-                type: 'spring',  // Usamos a tu vieja :v  "spring" para un efecto de retraso
-                stiffness: 90,  // Reduzco la rigidez para hacer el retraso más pronunciado
+                type: 'spring',  
+                stiffness: 100,  // Reduzco la rigidez para hacer el retraso más pronunciado
                 damping: 25,     // Aumento el damping para suavizar el movimiento
               }}
             >
@@ -63,7 +66,7 @@ export default function Home() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{
-                      delay: i * 0.2,
+                      delay: i * 0.1,
                       duration: 0.3,
                     }}
                     className={`${nosifer.className} text-6xl font-bold text-red-800 tracking-wide antialiased`}
@@ -105,9 +108,26 @@ export default function Home() {
                   className='z-10'
                 />
               </motion.div>
-              
+              <motion.button
+                initial={{ opacity: 0, scale: 0.6 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{
+                  duration: 0.3,
+                  ease: "easeInOut",
+                  delay: 0.3
+                }}
+                
+              >
+                <Link href="/voicechanel" className={`${nosifer.className} hover:text-white hover:bg-red-800 
+              text-red-800 bg-white px-5 py-1 rounded-xl transition-colors tracking-widest`}
+                >
+                  Get started
+                </Link>
+              </motion.button>
             </div>
           </section>
+
+          <SectionModel/>
 
           <section className='flex items-center justify-center bg-slate-200 py-20 px-14 relative'>
             <Image
@@ -141,6 +161,33 @@ export default function Home() {
               </div>
               <div className='w-2/5 flex items-center justify-start '>
                 <Scene />
+              </div>
+            </div>
+          </section>
+
+          <section className='flex flex-col items-center justify-center  py-20 px-14 '>
+            <h3 className={`text-center ${nosifer.className} text-4xl`}>Collaborators</h3>
+            <div className='flex items-center gap-5'>
+              <Members/>
+              <div>
+                <ul className='space-y-4'>
+                  <li className={`${nosifer.className} hover:text-red-800`}>
+                    <a href="https://github.com/PurpleSavage">
+                      PurpleSavage
+                    </a>
+                  </li>
+                  <li className={`${nosifer.className} hover:text-red-800`}>
+                    <a href="https://github.com/Ariano2700">
+                      Ariano2700
+                    </a>
+                  </li>
+                  <li className={`${nosifer.className} hover:text-red-800`}
+                  >
+                    <a href="https://github.com/DeyCasGuerrero">
+                      DeyCasGuerrero
+                    </a>
+                  </li>
+                </ul>
               </div>
             </div>
           </section>
