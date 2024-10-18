@@ -10,8 +10,8 @@ import { motion } from "framer-motion";
 import GhostSvg from '@/features/landing/Icons/GhostSvg';
 import { useMouseMovement } from '@/features/landing/hooks/PositionGhost';
 import GhostMoveSvg from '@/features/landing/Icons/GhostMoveSvg';
+import PhotosPublic from '@/features/landing/components/PhotosPublic';
 import SectionModel from '@/features/landing/components/SectionModel';
-
 
 export default function Home() {
   const title = "Welcome to the Bloody room."
@@ -118,7 +118,7 @@ export default function Home() {
                 }}
                 
               >
-                <Link href="/voicechanel" className={`${nosifer.className} hover:text-white hover:bg-red-800 
+                <Link href="/auth"  className={`${nosifer.className} hover:text-white hover:bg-red-800 
               text-red-800 bg-white px-5 py-1 rounded-xl transition-colors tracking-widest`}
                 >
                   Get started
@@ -165,8 +165,16 @@ export default function Home() {
             </div>
           </section>
 
+
+          <section className='py-20 px-14 flex items-center justify-center '> 
+            <div className='space-y-4'>
+              <h3 className={`text-center ${nosifer.className} text-4xl text-white`}>Gallery</h3>
+              <PhotosPublic/>
+            </div>
+          </section>
+
           <section className='flex flex-col items-center justify-center  py-20 px-14 '>
-            <h3 className={`text-center ${nosifer.className} text-4xl`}>Collaborators</h3>
+            <h3 className={`text-center ${nosifer.className} text-4xl text-white`}>Collaborators</h3>
             <div className='flex items-center gap-5'>
               <Members/>
               <div>

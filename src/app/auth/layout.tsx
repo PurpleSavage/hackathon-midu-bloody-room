@@ -1,4 +1,5 @@
-export default function VoiceLayout({
+import Header from "@/features/landing/components/Header";
+export default function AuthLayout({
     children,
   }: Readonly<{
     children: React.ReactNode;
@@ -6,7 +7,8 @@ export default function VoiceLayout({
     return (
       <div
         className={`antialiased overflow-hidden`}
-      >
+      > 
+          <Header/>
           {children}
       </div>
     );
