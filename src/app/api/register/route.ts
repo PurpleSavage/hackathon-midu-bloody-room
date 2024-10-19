@@ -33,7 +33,7 @@ export async function POST(req: Request) {
       await firestore.collection("users").doc(user.uid).set({
         photoProfile: user.photoProfile,
         photos: [],
-        tokens: 4,
+        attemptTokens: 4,
         createdAt: new Date(),
       });
     }
