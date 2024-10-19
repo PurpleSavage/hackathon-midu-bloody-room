@@ -20,6 +20,8 @@ function UploadedPhotoGenerated({ id, micPrompt }: Props) {
   const maxRetries = 3; // Número máximo de reintentos
   const addPhoto = useImageStore((state) => state.addPhoto);
   const photos = useImageStore((state) => state.photos);
+  const setAttemptTokens = useImageStore((state) => state.setAttemptTokens);
+  const attemptTokens = useImageStore((state) => state.attemptTokens);
 
   // Generar la URL de Cloudinary con el prompt para reemplazo de fondo
   useEffect(() => {
@@ -32,6 +34,7 @@ function UploadedPhotoGenerated({ id, micPrompt }: Props) {
       width: "1870",
       height: "1250",
     });
+    console.log("Generated URL: ", url); // Añade esto para depurar
     setImageUrl(url);
     setLoading(true);
   }, [id, micPrompt, hasImageLoaded]);
@@ -46,19 +49,38 @@ function UploadedPhotoGenerated({ id, micPrompt }: Props) {
         return;
       }
       console.log("Enviando URL a Firestore:", url);
-      const response = await fetch("/api/uploadImage", {
+      //const response = await fetch("/api/uploadImage", {
+      const response = await fetch(`http://localhost:3000/api/uploadImage`, {
         method: "POST",
         headers: {
+          Accept: "application/json",
+          "user-Agent": "*",
           "Content-Type": "application/json",
         },
+        //body: JSON.stringify({ photourl: url }),
         body: JSON.stringify({ photourl: url }),
       });
-      const responseData = await response.json(); // Leer la respuesta como JSON
-      if (!response.ok) {
-        console.error("Error guardando la imagen:", responseData.msg);
-      } else {
-        console.log("Imagen guardada correctamente:", responseData);
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.includes("text/html")) {
+        console.error(
+          "Se recibió una página HTML en lugar de JSON. Verifica la ruta API."
+        );
+        return;
       }
+      if (!response.ok) {
+        const responseData = await response.json(); // Leer la respuesta del servidor
+        if (response.status === 404) {
+          console.error(
+            "Error 404: Ruta no encontrada. Verifica la API route."
+          );
+        } else {
+          console.error("Error guardando la imagen:", responseData.msg);
+        }
+        return;
+      }
+
+      const responseData = await response.json(); // Si la respuesta es correcta
+      console.log("Imagen guardada correctamente:", responseData);
     } catch (error) {
       console.error("Error en la solicitud:", error);
     } finally {
@@ -82,17 +104,26 @@ function UploadedPhotoGenerated({ id, micPrompt }: Props) {
     if (hasImageLoaded || !imageUrl) return; // Asegurarse de que solo se ejecute una vez
     if (photos.includes(imageUrl)) {
       console.log("La imagen ya ha sido guardada previamente.");
+      //setLoading(false);
       return;
     }
     try {
       setHasImageLoaded(true); // Solo marcar como cargada la primera vez
       setLoading(false);
 
-      // Guardar la imagen en Firestore
-      await saveImageToFirestore(imageUrl);
+      if (photos.length === 0) {
+        setAttemptTokens(attemptTokens - 1);
+        // Agregar la imagen al store
+        addPhoto(imageUrl);
+        // Guardar la imagen en Firestore
+        await saveImageToFirestore(imageUrl);
+        return;
+      }
+      setAttemptTokens(attemptTokens - 1);
       // Agregar la imagen al store
       addPhoto(imageUrl);
-
+      // Guardar la imagen en Firestore
+      await saveImageToFirestore(imageUrl);
     } catch (error) {
       console.error("Error al guardar la imagen:", error);
     }

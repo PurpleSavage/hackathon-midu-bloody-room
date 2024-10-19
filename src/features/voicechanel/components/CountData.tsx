@@ -82,8 +82,9 @@ function CountData() {
         console.error("Error al cargar la última fecha:", response.statusText);
       }
     };
-
-    fetchLastImageAt();
+    setTimeout(() => {
+      fetchLastImageAt();
+    }, 1000);
   }, [photos]);
 
   // Actualizar cada minuto el contador si es que hay
