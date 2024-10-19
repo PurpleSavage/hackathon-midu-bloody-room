@@ -3,13 +3,14 @@ import { getAuth } from "firebase-admin/auth";
 import { initAdmin } from "@/service/intiFirebase";
 import { getFirestore, FieldValue } from "firebase-admin/firestore";
 import { NextResponse } from "next/server";
-export async function POST(req: Request) {
+export async function PATCH(req: Request) {
   const body = await req.json();
-  const { photourl } = body;
+  const { message } = body;
 
   const cookie = cookies();
   const token = cookie.get("auth-token");
   //console.log("Token recibido:", token); // Verifica el valor del token
+  console.log("Data from body", message);
 
   if (!token) {
     return new Response("No auth token provided", { status: 403 });
@@ -33,50 +34,45 @@ export async function POST(req: Request) {
       );
     }
     const userData = userDoc.data();
-    const photos = userData?.photos || [];
     const lastImageAt = userData?.lastImageAt
       ? userData.lastImageAt.toDate()
       : null;
+    if (lastImageAt === null) {
+      return NextResponse.json(
+        {
+          msg: "No existe ultima fecha de imagen",
+          attemptTokens: 4,
+          status: 200,
+        },
+        { status: 200 }
+      );
+    }
+
     const now = new Date();
     const is24HoursPassed = lastImageAt
       ? now.getTime() - lastImageAt.getTime() > 24 * 60 * 60 * 1000
       : true;
 
-    const totalPhotos = photos.length;
-    const attemptTokens = userData?.attemptTokens || null;
-
-    // Verificar si la photoUrl ya existe en el array de photos
-    if (photos.includes(photourl)) {
-      return NextResponse.json({
-        msg: "La imagen ya ha sido guardada previamente.",
-        status: 409, // 409 Conflict
-      });
+    // Verificar si han pasado 24 horas desde la última imagen
+    if (!is24HoursPassed) {
+      return NextResponse.json(
+        {
+          msg: "Aun no han pasado 24 horas desde la ultima imagen",
+          attemptTokens: 0,
+          status: 400,
+        },
+        { status: 400 }
+      );
     }
-
-    // Validar si ya pasó el bloque de 24 horas y si ha subido un múltiplo de 4 imágenes
-    if (!is24HoursPassed && totalPhotos % 4 === 0) {
-      return NextResponse.json({
-        msg: "No puedes subir más imágenes hasta que pasen 24 horas",
-        status: 403,
-      });
-    }
-
-    // Si se cumple la condición de múltiplo de 4 (es decir, la 4ta, 8va, 12va imagen), actualizamos `lastImageAt`
-    if ((totalPhotos + 1) % 4 === 0) {
-      await userDocRef.update({
-        photos: FieldValue.arrayUnion(photourl),
-        lastImageAt: now,
-        attemptTokens: 0,
-      });
-    } else {
-      await userDocRef.update({
-        photos: FieldValue.arrayUnion(photourl),
-        attemptTokens: attemptTokens - 1,
-      });
-    }
-
+    await userDocRef.update({
+      lastImageAt: null,
+      attemptTokens: 4,
+    });
     return NextResponse.json(
-      { msg: "Imagen guardada correctamente" },
+      {
+        msg: "Ultima fecha actualizada",
+        status: 200,
+      },
       { status: 200 }
     );
   } catch (error) {
