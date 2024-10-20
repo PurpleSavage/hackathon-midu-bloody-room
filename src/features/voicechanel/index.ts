@@ -1,0 +1,1 @@
+export {default as VoiceChanelPage} from "./page/VoiceChanelPage";
