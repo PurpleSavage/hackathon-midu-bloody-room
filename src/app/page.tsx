@@ -4,7 +4,6 @@ import Header from '@/features/landing/components/Header';
 import Scene from '@/features/landing/components/Scene';
 import { nosifer } from '@/fonts/fonts';
 import Image from 'next/image';
-import Link from 'next/link';
 import Members from '@/features/landing/components/Members';
 import { motion } from "framer-motion";
 import GhostSvg from '@/features/landing/Icons/GhostSvg';
@@ -12,11 +11,20 @@ import { useMouseMovement } from '@/features/landing/hooks/PositionGhost';
 import GhostMoveSvg from '@/features/landing/Icons/GhostMoveSvg';
 import PhotosPublic from '@/features/landing/components/PhotosPublic';
 import SectionModel from '@/features/landing/components/SectionModel';
+import { useRouter } from 'next/navigation'
 
 export default function Home() {
   const title = "Welcome to the Bloody room."
   const { mousePosition, isMoving } = useMouseMovement(200, 15);
-
+  const router = useRouter()
+  const handleClick =()=>{
+    const photourl = localStorage.getItem('authStore');
+    if(!photourl){
+      router.push('/auth')
+      return
+    }
+    router.push('/voicechanel')
+  }
 
   return (
     <div className={`min-h-screen ${style.bg} relative`}>
@@ -118,11 +126,11 @@ export default function Home() {
                 }}
 
               >
-                <Link href="/auth" className={`${nosifer.className} hover:text-white hover:bg-red-800 
+                <div onClick={handleClick} className={`${nosifer.className} hover:text-white hover:bg-red-800 
               text-red-800 bg-white px-5 py-1 rounded-xl transition-colors tracking-widest`}
                 >
                   Get started
-                </Link>
+                </div>
               </motion.button>
             </div>
           </section>
