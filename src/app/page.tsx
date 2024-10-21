@@ -156,8 +156,7 @@ export default function Home() {
             />
             <div className='flex w-[80%] '>
               <div className={`text-black font-medium w-3/5  text-2xl flex items-center ${nosifer.className} tracking-widest`}>
-                An interactive voice chat web app where you can upload a photo, activate your microphone,
-                and request your own custom horror-themed montage. Unleash your imagination and let the fear begin!
+              What are you waiting for? This Halloween, dive into our app and create the best photo edits with ease. Get spooky in seconds!
               </div>
               <div className='w-2/5 flex items-center justify-start '>
                 <Scene />

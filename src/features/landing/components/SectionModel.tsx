@@ -118,9 +118,13 @@ export default function SectionModel() {
                             }}
                             className="flex items-center p-4 cursor-pointer"
                         >
-                            <p className={`${nosifer.className} text-black w-[500px] text-3xl flex-wrap`}>
-                                cloudinary
-                            </p>
+                            <div className={`${nosifer.className} text-black w-[500px]  `}>
+                                <span className="text-3xl">Bloodyroom</span>
+                                <p>
+                                    An interactive voice chat web app where you can upload a photo, activate your microphone,
+                                    and request your own custom horror-themed montage. Unleash your imagination and let the fear begin!
+                                </p>
+                            </div>
 
                             <div
                                 className="relative m-10 overflow-hidden z-20 text-black flex justify-center h-[300px] w-[160px] border-4 border-black rounded-2xl bg-gray-50"
