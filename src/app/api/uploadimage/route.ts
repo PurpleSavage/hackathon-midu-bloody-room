@@ -45,11 +45,22 @@ export async function POST(req: Request) {
     const totalPhotos = photos.length;
     const attemptTokens = userData?.attemptTokens || null;
 
+    const defaultImageUrl =
+      "https://res.cloudinary.com/dekmzfcpp/image/upload/v1729470771/defaultImage_ddqdig.png";
+
     // Verificar si la photoUrl ya existe en el array de photos
     if (photos.includes(photourl)) {
       return NextResponse.json({
         msg: "La imagen ya ha sido guardada previamente.",
         status: 409, // 409 Conflict
+      });
+    }
+
+    const isDefaultImagePresent = photos.includes(defaultImageUrl);
+    // Actualizar Firestore directamente eliminando la imagen predeterminada
+    if (isDefaultImagePresent) {
+      await userDocRef.update({
+        photos: FieldValue.arrayRemove(defaultImageUrl),
       });
     }
 

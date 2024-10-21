@@ -1,9 +1,10 @@
 "use client";
+import { nosifer } from "@/fonts/fonts";
 import useImageStore from "@/stores/imageStore/image.store";
 import { getCldImageUrl } from "next-cloudinary";
 import { useState, useEffect } from "react";
-import { FaSpinner } from "react-icons/fa6";
 import ImageCarousel from "./ImageCarousel";
+import { PiSpinnerBold } from "react-icons/pi";
 
 type Props = {
   imageUrl?: string;
@@ -27,20 +28,36 @@ function UploadedPhotoGenerated({ id, micPrompt }: Props) {
   useEffect(() => {
     if (!id || hasImageLoaded) return;
 
-    const url = getCldImageUrl({
-      src: id,
-      replaceBackground: micPrompt,
-      restore: true,
-      width: "1870",
-      height: "1250",
-    });
-    console.log("Generated URL: ", url); // Añade esto para depurar
-    setImageUrl(url);
-    setLoading(true);
+    if (photos.length === 0) {
+      // Lógica para nuevo usuario sin fotos previas
+      const url = getCldImageUrl({
+        src: id,
+        replaceBackground: micPrompt,
+        restore: true,
+        width: "1870",
+        height: "1250",
+      });
+      console.log("Generated URL for new user: ", url);
+      setImageUrl(url);
+      setLoading(true);
+    } else {
+      // Lógica para usuario existente
+      const url = getCldImageUrl({
+        src: id,
+        replaceBackground: micPrompt,
+        restore: true,
+        width: "1870",
+        height: "1250",
+      });
+      console.log("Generated URL for USER EXISTIED: ", url);
+      setImageUrl(url);
+      setLoading(true);
+    }
   }, [id, micPrompt, hasImageLoaded]);
 
   //guardar en el firebase
   const saveImageToFirestore = async (url: string) => {
+    console.log("Si llega hasta el saveImageToFirestore con el url de: ", url);
     if (isSaving) return; // Si ya estamos guardando, evitar múltiples llamadas
     setIsSaving(true);
     try {
@@ -115,6 +132,7 @@ function UploadedPhotoGenerated({ id, micPrompt }: Props) {
         setAttemptTokens(attemptTokens - 1);
         // Agregar la imagen al store
         addPhoto(imageUrl);
+        setLoading(true);
         // Guardar la imagen en Firestore
         await saveImageToFirestore(imageUrl);
         return;
@@ -122,6 +140,7 @@ function UploadedPhotoGenerated({ id, micPrompt }: Props) {
       setAttemptTokens(attemptTokens - 1);
       // Agregar la imagen al store
       addPhoto(imageUrl);
+      setLoading(true);
       // Guardar la imagen en Firestore
       await saveImageToFirestore(imageUrl);
     } catch (error) {
@@ -129,18 +148,45 @@ function UploadedPhotoGenerated({ id, micPrompt }: Props) {
     }
   };
 
+  const checkImageStatus = async () => {
+    if (!imageUrl) return;
+    try {
+      const response = await fetch(imageUrl);
+
+      if (!response.ok && response.status === 423) {
+        console.log("Imagen aún generándose. Reintentando...");
+        setTimeout(checkImageStatus, 5000); // Reintentar después de 5 segundos
+      } else if (!response.ok) {
+        handleImageError(); // Manejar otros errores
+      } else {
+        setLoading(false); // Imagen lista, detener el loader
+      }
+    } catch (error) {
+      console.error("Error al cargar la imagen: ", error);
+      handleImageError(); // Manejar errores de red
+    }
+  };
+  // useEffect para chequear el estado de la imagen al montar o cuando cambie la URL
+  useEffect(() => {
+    if (imageUrl) {
+      checkImageStatus();
+    }
+  }, [imageUrl]); // Ejecuta cuando imageUrl cambia
+
   return (
-    <div className="flex items-center justify-center w-full h-full">
-      {loading ? (
+    <div className="flex flex-col gap-5 items-center justify-center w-full h-full">
+      {loading && imageUrl ? (
         // Mostrar loader mientras la imagen está cargando
         <div className="flex flex-col items-center justify-center w-11/12 h-full rounded-lg">
-          <FaSpinner className="animate-spin text-slate-500 text-5xl mb-4" />
-          <div className="text-slate-500">Generando imagen...</div>
+          <PiSpinnerBold className="animate-spin text-red-800 text-5xl mb-4" />
+          <div className={`text-red-800 ${nosifer.className}`}>
+            Generando imagen...
+          </div>
         </div>
       ) : (
         // Mostrar error si no se puede cargar la imagen después de varios intentos
         !imageUrl && (
-          <div className="text-red-500 text-lg">
+          <div className={`text-red-800 ${nosifer.className} text-lg`}>
             No se pudo cargar la imagen.
           </div>
         )

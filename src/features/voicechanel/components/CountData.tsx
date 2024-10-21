@@ -50,7 +50,7 @@ function CountData() {
         return;
       }
       const result = await response.json();
-      console.log("Update lastImageDate", result);
+      //console.log("Update lastImageDate", result);
     };
     fetchUpdateLastImage();
   }, []);
@@ -61,14 +61,9 @@ function CountData() {
       const response = await fetch("/api/getUserData");
       if (response.ok) {
         const data = await response.json();
-        console.log("fecha", data.lastImageAt);
-        console.log("intentos restantes", data.attemptTokens);
+        // console.log("fecha", data.lastImageAt);
+        // console.log("intentos restantes", data.attemptTokens);
         setAttemptTokens(data.attemptTokens);
-        // if (!data.attemptTokens === null) {
-        //   setAttemptTokens(data.attemptTokens);
-        // } else {
-        //   setAttemptTokens(0);
-        // }
         if (data.lastImageAt) {
           // Convertir los segundos y nanosegundos de Firebase a una fecha válida
           const lastImageTimestamp = data.lastImageAt._seconds * 1000; // Convertimos los segundos a milisegundos
@@ -99,7 +94,7 @@ function CountData() {
     }
   }, [lastImageAt]);
   return (
-    <div className="w-11/12 mb-12">
+    <div className="w-11/12 mb-12 grow">
       {attemptTokens === 0 || attemptTokens === null ? (
         <div className="flex items-center justify-between">
           {lastImageAt !== null ? (

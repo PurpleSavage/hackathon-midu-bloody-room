@@ -2,6 +2,7 @@
 import useImageStore from "@/stores/imageStore/image.store";
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import DownloadImage from "./DownloadImage";
 
 type Props = {
   handleImageLoad: () => void;
@@ -53,8 +54,7 @@ function ImageCarousel(props: Props) {
       prevIndex < numSlides - 1 ? prevIndex + 1 : numSlides - 1
     );
   };
-  //////////////////////
-
+  ////////////////////
   useEffect(() => {
     if (photos.length > 0) return;
     const fetchPhotos = async () => {
@@ -72,15 +72,18 @@ function ImageCarousel(props: Props) {
 
   return (
     <>
-      <div className="flex items-center justify-center mb-6 min-h-[570px]">
+      <div className="flex items-center justify-center">
         {photos.length > 0 && (
-          <img
-            src={photos[activeIndex]} // Mostrar la imagen activa
-            alt={`Generated image ${activeIndex + 1}`}
-            className="w-full max-w-xl max-h-[570px] rounded-md"
-            onLoad={handleImageLoad}
-            onError={handleImageError}
-          />
+          <div className="flex items-center justify-center mb-6 flex-col gap-6 min-h-[570px]">
+            <img
+              src={photos[activeIndex]} // Mostrar la imagen activa
+              alt={`Generated image ${activeIndex + 1}`}
+              className="w-full max-w-xl max-h-[570px] rounded-md"
+              onLoad={handleImageLoad}
+              onError={handleImageError}
+            />
+            <DownloadImage activeIndex={activeIndex} photos={photos} />
+          </div>
         )}
       </div>
       <motion.div
@@ -90,20 +93,20 @@ function ImageCarousel(props: Props) {
           type: "spring",
           stiffness: 200,
           damping: 30,
-        }} // Animación suave de la distancia entre los contenedores
+        }}
       >
-        {" "}
         <div
           onPointerDown={handleStart}
           onPointerUp={handleEnd}
           onTouchStart={handleStart}
           onTouchEnd={handleEnd}
-          className="w-full overflow-hidden flex justify-center" // Asegura que el contenedor no muestre los elementos fuera de la vista
+          className="w-full overflow-hidden flex justify-center py-7"
         >
           <motion.div
             className="flex items-center"
             animate={{
-              x: `calc(50% - ${activeIndex * 200}px)`, // Calcula el desplazamiento para centrar la imagen activa
+              // Aquí calculamos el desplazamiento dinámico
+              x: `calc(50% - ${activeIndex * (100 / photos.length)}%)`,
             }}
             transition={{ duration: 0.8, ease: [0.25, 0.8, 0.5, 1] }}
           >
@@ -123,12 +126,12 @@ function ImageCarousel(props: Props) {
                   ease: [0.25, 0.8, 0.5, 1],
                 }}
               >
-                <div className="w-64 max-[1180px]:w-52 max-lg:w-44 h-auto flex items-center justify-center py-2">
+                <div className="w-64 h-auto flex items-center justify-center py-2">
                   <div className="w-full h-full relative overflow-hidden rounded-lg">
                     <img
                       src={photo}
                       alt={`Generated image ${index + 1}`}
-                      className="w-full h-full object-cover"
+                      className="w-full max-sm:w-[70%] h-full object-cover"
                       onLoad={handleImageLoad}
                       onError={handleImageError}
                     />

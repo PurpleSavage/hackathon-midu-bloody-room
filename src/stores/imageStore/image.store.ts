@@ -7,6 +7,8 @@ interface ImageStore {
   addPhoto: (url: string) => void;
   setPhotos: (urls: string[]) => void;
 }
+const defaultImageUrl =
+  "https://res.cloudinary.com/dekmzfcpp/image/upload/v1729470771/defaultImage_ddqdig.png";
 
 const useImageStore = create<ImageStore>((set) => ({
   photos: [],
@@ -14,10 +16,16 @@ const useImageStore = create<ImageStore>((set) => ({
   setAttemptTokens: (attemptTokens) => set({ attemptTokens: attemptTokens }),
   addPhoto: (url) =>
     set((state) => {
-      if (!state.photos.includes(url)) {
-        return { photos: [...state.photos, url] };
+      let updatedPhotos = [...state.photos];
+      if (updatedPhotos.includes(defaultImageUrl)) {
+        updatedPhotos = updatedPhotos.filter(
+          (photo) => photo !== defaultImageUrl
+        );
       }
-      return state;
+      if (!updatedPhotos.includes(url)) {
+        updatedPhotos.push(url);
+      }
+      return { photos: updatedPhotos };
     }),
   setPhotos: (urls) => set({ photos: urls }),
 }));

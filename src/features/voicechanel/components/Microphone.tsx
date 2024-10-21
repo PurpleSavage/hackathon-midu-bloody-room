@@ -7,7 +7,6 @@ import { FaMicrophone, FaMicrophoneSlash } from "react-icons/fa6";
 export default function Microphone() {
   const setMicData = useMicStore((state) => state.setMicData);
   const resultData = useMicStore((state) => state.resultData);
-  const photos = useImageStore((state) => state.photos);
   const [isRecording, setIsRecording] = useState(false);
   const mediaRecorder = useRef<MediaRecorder | null>(null);
   const mediaStream = useRef<MediaStream | null>(null);
@@ -49,30 +48,6 @@ export default function Microphone() {
       console.log(error);
     }
   };
-
-  // const startRecording = async () => {
-  //   try {
-  //     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-  //     mediaStream.current = stream;
-  //     mediaRecorder.current = new MediaRecorder(stream);
-
-  //     mediaRecorder.current.ondataavailable = (e) => {
-  //       if (e.data.size > 0) {
-  //         chunks.current.push(e.data);
-  //       }
-  //     };
-
-  //     mediaRecorder.current.onstop = () => {
-  //       sendAudio(); // Enviar el audio al detener la grabación
-  //       chunks.current = [];
-  //     };
-
-  //     mediaRecorder.current.start();
-  //     setIsRecording(true);
-  //   } catch (error) {
-  //     console.error("Error al acceder al micrófono:", error);
-  //   }
-  // };
   const startRecording = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });

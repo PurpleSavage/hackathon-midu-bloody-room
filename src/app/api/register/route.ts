@@ -30,12 +30,17 @@ export async function POST(req: Request) {
     const userDoc = await firestore.collection("users").doc(user.uid).get();
 
     if (!userDoc.exists) {
-      await firestore.collection("users").doc(user.uid).set({
-        photoProfile: user.photoProfile,
-        photos: [],
-        attemptTokens: 4,
-        createdAt: new Date(),
-      });
+      await firestore
+        .collection("users")
+        .doc(user.uid)
+        .set({
+          photoProfile: user.photoProfile,
+          photos: [
+            "https://res.cloudinary.com/dekmzfcpp/image/upload/v1729470771/defaultImage_ddqdig.png",
+          ],
+          attemptTokens: 4,
+          createdAt: new Date(),
+        });
     }
     cookie.set({
       name: "auth-token",
