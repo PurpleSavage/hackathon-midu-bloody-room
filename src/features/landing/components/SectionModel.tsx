@@ -3,9 +3,7 @@ import { nosifer } from "@/fonts/fonts";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import styles from "../css/animetionLoader.module.css"
-import BloodSvg from "../Icons/BloodSvg";
-import Microphone from "@/features/voicechanel/components/Microphone";
-import { CldUploadButton } from "next-cloudinary";
+
 import { IoCloudDownloadOutline } from "react-icons/io5";
 import { FaMicrophoneSlash } from "react-icons/fa";
 
@@ -51,7 +49,7 @@ export default function SectionModel() {
                                 }}
                                 className={`text-white ${nosifer.className}  text-9xl max-xl:text-8xl  font-bold`}
                             >
-                                Cloud
+                                Bloody
                                 <motion.span
                                     initial={{ color: "#FFFFFF", x: 0 }}
                                     animate={isClicked
@@ -64,7 +62,7 @@ export default function SectionModel() {
                                         delay: 1.4,
                                     }}
                                 >
-                                    Dinary
+                                    Room
                                 </motion.span>
                             </motion.p>
 
