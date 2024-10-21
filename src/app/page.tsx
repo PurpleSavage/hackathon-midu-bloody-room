@@ -33,7 +33,7 @@ export default function Home() {
                 y: mousePosition.y - 120,
               }}
               transition={{
-                type: 'spring',  
+                type: 'spring',
                 stiffness: 100,  // Reduzco la rigidez para hacer el retraso más pronunciado
                 damping: 25,     // Aumento el damping para suavizar el movimiento
               }}
@@ -116,9 +116,9 @@ export default function Home() {
                   ease: "easeInOut",
                   delay: 0.3
                 }}
-                
+
               >
-                <Link href="/auth"  className={`${nosifer.className} hover:text-white hover:bg-red-800 
+                <Link href="/auth" className={`${nosifer.className} hover:text-white hover:bg-red-800 
               text-red-800 bg-white px-5 py-1 rounded-xl transition-colors tracking-widest`}
                 >
                   Get started
@@ -127,7 +127,7 @@ export default function Home() {
             </div>
           </section>
 
-          <SectionModel/>
+          <SectionModel />
 
           <section className='flex items-center justify-center bg-slate-200 py-20 px-14 relative'>
             <Image
@@ -166,17 +166,17 @@ export default function Home() {
           </section>
 
 
-          <section className='py-20 px-14 flex items-center justify-center '> 
+          <section className='py-20 px-14 flex items-center justify-center '>
             <div className='space-y-4'>
               <h3 className={`text-center ${nosifer.className} text-4xl text-white`}>Gallery</h3>
-              <PhotosPublic/>
+              <PhotosPublic />
             </div>
           </section>
 
           <section className='flex flex-col items-center justify-center  py-20 px-14 '>
             <h3 className={`text-center ${nosifer.className} text-4xl text-white`}>Collaborators</h3>
             <div className='flex items-center gap-5'>
-              <Members/>
+              <Members />
               <div>
                 <ul className='space-y-4'>
                   <li className={`${nosifer.className} hover:text-red-800`}>
