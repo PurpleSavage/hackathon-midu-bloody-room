@@ -34,12 +34,14 @@ function VoiceChanelPage() {
 
       <div className="absolute z-10 flex flex-col bottom-0 right-0 left-0 top-0">
         <Header />
-        <div className="grow flex flex-col justify-center items-center py-5">
-          <CountData />
-          <UploadedPhoto />
+        <div className="grow overflow-y-auto">
+          <div className=" flex flex-col justify-center items-center">
+            <CountData />
+            <UploadedPhoto />
+          </div>
+            <UploadBtn />
+            <Microphone />
         </div>
-        <UploadBtn />
-        <Microphone />
       </div>
     </div>
   );
