@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+
 import styles from "../css/animetScroll.module.css";
 
 export default function PhotosPublic() {
