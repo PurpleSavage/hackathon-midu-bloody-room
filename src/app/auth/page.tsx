@@ -60,7 +60,7 @@ export default function Auth() {
                     <button type="submit" className={`mx-auto  bg-white text-red-800 py-4 px-10 flex 
                       rounded-lg border border-slate-300 hover:border-red-800  
                       justify-center items-center ${nosifer.className} gap-4 relative`}>
-                        <FcGoogle size={25}/> Sign in with google
+                        <FcGoogle size={25}/> Sign in with google 
 
                         <Image
                          width={50}
