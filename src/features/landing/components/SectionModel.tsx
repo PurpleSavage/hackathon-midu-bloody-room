@@ -84,7 +84,7 @@ export default function SectionModel() {
                         >
                             <button
                                 onClick={() => setIsClicked(true)}
-                                className="bg-red-700 px-3 py-2 rounded-xl text-white font-bold hover:bg-red-800"
+                                className={`${nosifer.className} bg-red-700 px-3 py-2 rounded-xl text-white font-bold hover:bg-red-800`}
                             >
                                 What is this?
                             </button>
