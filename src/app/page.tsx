@@ -223,12 +223,12 @@ export default function Home() {
                     <div className='w-full flex items-center justify-center gap-4'>
                       <div >
                         <Link href={`https://github.com/DeyCasGuerrero`}>
-                          <FaGithub size={30} className='bg-black p-1' />
+                          <FaGithub size={30} className='text-white hover:text-red-800 p-1' />
                         </Link>
                       </div>
                       <div >
                         <Link href={`https://www.linkedin.com/in/jeferson-castillo-276774323/`}>
-                          <FaLinkedinIn size={25} className='bg-blue-500 p-1' />
+                          <FaLinkedinIn size={25} className='text-white hover:text-red-800 p-1' />
                         </Link>
                       </div>
                     </div>
@@ -249,12 +249,12 @@ export default function Home() {
                     <div className='w-full flex items-center justify-center gap-4'>
                       <div >
                         <Link href={`https://github.com/Ariano2700`}>
-                          <FaGithub size={30} className='bg-black p-1' />
+                          <FaGithub size={30} className='text-white hover:text-red-800 p-1' />
                         </Link>
                       </div>
                       <div >
                         <Link href={`www.linkedin.com/in/ariano-selim-alban-gomez-073325332`}>
-                          <FaLinkedinIn size={25} className='bg-blue-500 p-1' />
+                          <FaLinkedinIn size={25} className='text-white hover:text-red-800 p-1' />
                         </Link>
                       </div>
                     </div>
@@ -275,12 +275,12 @@ export default function Home() {
                     <div className='w-full flex items-center justify-center gap-4'>
                       <div >
                         <Link href={`https://github.com/purplesavage`}>
-                          <FaGithub size={30} className='bg-black p-1' />
+                          <FaGithub size={30} className='text-white hover:text-red-800 p-1' />
                         </Link>
                       </div>
                       <div >
                         <Link href={`www.linkedin.com/in/jean-paul-zurita-palomino-0411072a3`}>
-                          <FaLinkedinIn size={25} className='bg-blue-500 p-1' />
+                          <FaLinkedinIn size={25} className='text-white hover:text-red-800 p-1' />
                         </Link>
                       </div>
                     </div>
