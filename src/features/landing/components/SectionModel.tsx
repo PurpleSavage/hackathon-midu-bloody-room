@@ -33,7 +33,7 @@ export default function SectionModel() {
             >
 
                 <div ref={ref}
-                    className="flex items-center justify-center w-full max-lg:ml-96 "> {/* Agregar z-10 para asegurar que el texto esté sobre el fondo */}
+                    className="flex items-center justify-center w-full  max-lg:ml-0 "> {/* Agregar z-10 para asegurar que el texto esté sobre el fondo */}
                     <AnimatePresence>
                         {inView && (
                             <motion.p
@@ -47,7 +47,7 @@ export default function SectionModel() {
                                     ease: "easeOut",
                                     delay: 0.4
                                 }}
-                                className={`text-white ${nosifer.className}  text-9xl max-xl:text-8xl  font-bold`}
+                                className={`text-white ${nosifer.className}  text-9xl max-xl:text-8xl max-lg:text-4xl  font-bold`}
                             >
                                 Bloody
                                 <motion.span
@@ -108,7 +108,7 @@ export default function SectionModel() {
                                 background: "#ffffff",
 
                             }}
-                            exit={{ opacity: 0, scale: 0.6 }}
+                            exit={{ opacity: 0, scale: 0.7 }}
                             ref={ref}
                             onClick={() => setIsClickScreen(true)}
                             transition={{
@@ -116,18 +116,33 @@ export default function SectionModel() {
                                 ease: "easeInOut",
                                 delay: 0.5
                             }}
-                            className="flex items-center p-4 cursor-pointer"
+                            className="flex max-md:flex-col items-center max-md:pb-5 p-4 cursor-pointer"
                         >
-                            <div className={`${nosifer.className} text-black w-[500px]  `}>
-                                <span className="text-3xl">Bloodyroom</span>
-                                <p>
-                                    An interactive voice chat web app where you can upload a photo, activate your microphone,
-                                    and request your own custom horror-themed montage. Unleash your imagination and let the fear begin!
-                                </p>
-                            </div>
+                            <AnimatePresence>
+                                {isClickScreen && (
+                                    <motion.div 
+                                    initial={{ opacity: 0, scale: 0.6 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    exit={{ opacity: 0, scale: 0.6 }}
+                                    transition={{
+                                        duration: 0.3,
+                                        ease: "easeInOut",
+                                        delay: 0.5
+                                    }}
+                                    >
+                                        <div className={`${nosifer.className} text-black w-[500px] max-md:flex max-md:flex-col max-md:items-center max-md:justify-center max-md:gap-4`}>
+                                            <span className="text-3xl mt-10">Bloodyroom</span>
+                                            <p className="max-md:text-center max-md:text-lg max-md:font-bold max-md::flex max-md:flex-wrap max-md:w-64">
+                                                An interactive voice chat web app where you can upload a photo, activate your microphone,
+                                                and request your own custom horror-themed montage. Unleash your imagination and let the fear begin!
+                                            </p>
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
 
                             <div
-                                className="relative m-10 overflow-hidden z-20 text-black flex justify-center h-[300px] w-[160px] border-4 border-black rounded-2xl bg-gray-50"
+                                className="relative m-10 overflow-hidden z-20  text-black flex justify-center h-[300px] w-[160px] border-4 border-black rounded-2xl bg-gray-50"
                             >
                                 <span className="border border-black z-20 bg-black w-20 h-2 rounded-br-xl rounded-bl-xl"></span>
                                 <span className="absolute -right-2 top-14 border-4 z-20 border-black h-7 rounded-md"></span>
