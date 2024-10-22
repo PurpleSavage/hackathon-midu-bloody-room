@@ -4,7 +4,6 @@ import Header from '@/features/landing/components/Header';
 import Scene from '@/features/landing/components/Scene';
 import { nosifer } from '@/fonts/fonts';
 import Image from 'next/image';
-import Link from 'next/link';
 import Members from '@/features/landing/components/Members';
 import { motion } from "framer-motion";
 import GhostSvg from '@/features/landing/Icons/GhostSvg';
@@ -12,11 +11,22 @@ import { useMouseMovement } from '@/features/landing/hooks/PositionGhost';
 import GhostMoveSvg from '@/features/landing/Icons/GhostMoveSvg';
 import PhotosPublic from '@/features/landing/components/PhotosPublic';
 import SectionModel from '@/features/landing/components/SectionModel';
+import { useRouter } from 'next/navigation'
+import { FaGithub, FaLinkedinIn } from "react-icons/fa";
+import Link from 'next/link';
 
 export default function Home() {
   const title = "Welcome to the Bloody room."
   const { mousePosition, isMoving } = useMouseMovement(200, 15);
-
+  const router = useRouter()
+  const handleClick = () => {
+    const photourl = localStorage.getItem('authStore');
+    if (!photourl) {
+      router.push('/auth')
+      return
+    }
+    router.push('/voicechanel')
+  }
 
   return (
     <div className={`min-h-screen ${style.bg} relative`}>
@@ -26,7 +36,7 @@ export default function Home() {
         <div className='grow w-full overflow-y-auto '>
           <section className='flex md:flex-row flex-col relative overflow-hidden' >
             <motion.div
-              className="absolute z-0 "
+              className="absolute z-0 max-md:hidden"
 
               animate={{
                 x: mousePosition.x - 80,
@@ -57,7 +67,7 @@ export default function Home() {
             </motion.div>
 
 
-            <div className={`gap-12  w-full md:w-3/5 px-14 flex items-center justify-center
+            <div className={`gap-12  w-full md:w-3/5 lg:px-14 px-5 flex items-center justify-center
               h-[650px] flex-col `}>
               <div className="flex flex-wrap items-center justify-center w-full  overflow-hidden">
                 {title.split('').map((letter, i) => (
@@ -118,11 +128,11 @@ export default function Home() {
                 }}
 
               >
-                <Link href="/auth" className={`${nosifer.className} hover:text-white hover:bg-red-800 
+                <div onClick={handleClick} className={`${nosifer.className} hover:text-white hover:bg-red-800 
               text-red-800 bg-white px-5 py-1 rounded-xl transition-colors tracking-widest`}
                 >
                   Get started
-                </Link>
+                </div>
               </motion.button>
             </div>
           </section>
@@ -156,7 +166,7 @@ export default function Home() {
             />
             <div className='flex w-[80%] '>
               <div className={`text-black font-medium w-3/5  text-2xl flex items-center ${nosifer.className} tracking-widest`}>
-              What are you waiting for? This Halloween, dive into our app and create the best photo edits with ease. Get spooky in seconds!
+                What are you waiting for? This Halloween, dive into our app and create the best photo edits with ease. Get spooky in seconds!
               </div>
               <div className='w-2/5 flex items-center justify-start '>
                 <Scene />
@@ -165,41 +175,101 @@ export default function Home() {
           </section>
 
 
-          <section className='py-20 px-14 flex items-center justify-center '>
+          <section className='py-20 px-14 flex items-center justify-center  overflow-hidden'>
             <div className='space-y-4'>
               <h3 className={`text-center ${nosifer.className} text-4xl text-white`}>Gallery</h3>
               <PhotosPublic />
             </div>
           </section>
 
-          <section className='flex flex-col items-center justify-center  py-20 px-14 '>
-            <h3 className={`text-center ${nosifer.className} text-4xl text-white`}>Collaborators</h3>
-            <div className='flex items-center gap-5'>
+          <section className='flex overflow-hidden flex-col items-center justify-center px-4  py-20 md:px-14 '>
+            <h3 className={`text-center ${nosifer.className} text-4xl text-white m
+              x-md:text-2xl`}>Collaborators</h3>
+            <div className='flex flex-col items-center gap-2 w-full'>
               <Members />
-              <div>
-                <ul className='space-y-4'>
-                  <li className={`${nosifer.className} hover:text-red-800`}>
-                    <a href="https://github.com/PurpleSavage">
-                      PurpleSavage
-                    </a>
-                  </li>
-                  <li className={`${nosifer.className} hover:text-red-800`}>
-                    <a href="https://github.com/Ariano2700">
-                      Ariano2700
-                    </a>
-                  </li>
-                  <li className={`${nosifer.className} hover:text-red-800`}
+              <div className='flex flex-col items-center gap-4 w-full h-auto p-1 '>
+                <div className={`${nosifer.className} bg-black flex items-center border-2 px-2 py-1 max-md:w-full w-[400px] rounded border-red-500 `}>
+                  <img
+                    src={`https://avatars.githubusercontent.com/u/132533056?v=4`}
+                    alt='wa'
+                    className='w-10 h-10 rounded-full'
                   >
-                    <a href="https://github.com/DeyCasGuerrero">
+                  </img>
+                  <div className='flex flex-col gap-3 items-center justify-center w-full h-full'>
+                    <p className='w-full text-center text-xs truncate'>
                       DeyCasGuerrero
-                    </a>
-                  </li>
-                </ul>
+                    </p>
+                    <div className='w-full flex items-center justify-center gap-4'>
+                      <div >
+                        <Link href={`https://github.com/DeyCasGuerrero`}>
+                          <FaGithub size={30} className='bg-black p-1' />
+                        </Link>
+                      </div>
+                      <div >
+                        <Link href={`https://www.linkedin.com/in/purplesavage/`}>
+                          <FaLinkedinIn size={30} className='bg-blue-500 p-1' />
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className={`${nosifer.className} bg-black flex items-center border-2 px-2 py-1  max-md:w-full w-[400px]  rounded border-red-500 `}>
+                  <img
+                    src={`https://avatars.githubusercontent.com/u/143843252?v=4`}
+                    alt='wa'
+                    className='w-10 h-10 rounded-full'
+                  >
+                  </img>
+                  <div className='flex flex-col gap-3 items-center justify-center w-full h-full'>
+                    <p className='w-full text-xs  text-center'>
+                      Ariano2700
+                    </p>
+                    <div className='w-full flex items-center justify-center gap-4'>
+                      <div >
+                        <Link href={`https://github.com/Ariano2700`}>
+                          <FaGithub size={30} className='bg-black p-1' />
+                        </Link>
+                      </div>
+                      <div >
+                        <Link href={`https://www.linkedin.com/in/purplesavage/`}>
+                          <FaLinkedinIn size={30} className='bg-blue-500 p-1' />
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className={`${nosifer.className} bg-black flex items-center border-2 px-2 py-1  max-md:w-full w-[400px]  rounded border-red-500 `}>
+                  <img
+                    src={`https://avatars.githubusercontent.com/u/131500236?v=4`}
+                    alt='wa'
+                    className='w-10 h-10 rounded-full'
+                  >
+                  </img>
+                  <div className='flex flex-col gap-3 items-center justify-center w-full h-full'>
+                    <p className='w-full text-xs  text-center'>
+                      PurpleSavage
+                    </p>
+                    <div className='w-full flex items-center justify-center gap-4'>
+                      <div >
+                        <Link href={`https://github.com/purplesavage`}>
+                          <FaGithub size={30} className='bg-black p-1' />
+                        </Link>
+                      </div>
+                      <div >
+                        <Link href={`https://www.linkedin.com/in/purplesavage/`}>
+                          <FaLinkedinIn size={30} className='bg-blue-500 p-1' />
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </section>
         </div>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 }

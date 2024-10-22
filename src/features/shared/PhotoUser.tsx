@@ -16,6 +16,7 @@ export default function PhotoUser() {
       return
     }
     setSession(null)
+    localStorage.removeItem('authStore');
     router.push('/')
   }
   return (
