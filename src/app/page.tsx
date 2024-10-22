@@ -15,8 +15,11 @@ import { useRouter } from 'next/navigation'
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 import Link from 'next/link';
 
+
+
+const title = "Welcome to the Bloody room."
 export default function Home() {
-  const title = "Welcome to the Bloody room."
+  
   const { mousePosition, isMoving } = useMouseMovement(200, 15);
   const router = useRouter()
   const handleClick = () => {
@@ -68,7 +71,7 @@ export default function Home() {
 
 
             <div className={`gap-12  w-full md:w-3/5 lg:px-14 px-5 flex items-center justify-center
-              h-[650px] flex-col `}>
+              md:h-[650px] flex-col `}>
               <div className="flex flex-wrap items-center justify-center w-full  overflow-hidden">
                 {title.split('').map((letter, i) => (
                   <motion.span
@@ -79,7 +82,7 @@ export default function Home() {
                       delay: i * 0.1,
                       duration: 0.3,
                     }}
-                    className={`${nosifer.className} text-6xl font-bold text-red-800 tracking-wide antialiased`}
+                    className={`${nosifer.className} text-4xl md:text-6xl font-bold text-red-800 tracking-wide antialiased`}
                   >
                     {letter === ' ' ? '\u00A0' : letter}
                   </motion.span>
@@ -94,15 +97,16 @@ export default function Home() {
                   ease: "easeInOut",
                   delay: 0.3
                 }}
-                className='text-2xl tracking-widest z-10 text-white'>
+                className='text-lg md:text-2xl tracking-widest z-10 text-white'>
                 Upload a photo, use voice chat, and request your own custom horror montage. Let the terror unfold!
               </motion.p>
             </div>
-            <div className='flex items-center justify-center flex-col md:w-2/5 w-full gap-4'>
+            <div className='flex items-center justify-center my-10 md:my-0 flex-col md:w-2/5 w-full gap-4'>
 
               <motion.div
                 initial={{ opacity: 0, scale: 0.6 }}
                 animate={{ opacity: 1, scale: 1 }}
+                className='sm:block hidden'
                 transition={{
                   duration: 0.3,
                   ease: "easeInOut",
@@ -139,11 +143,27 @@ export default function Home() {
 
           <SectionModel />
 
-          <section className='flex items-center justify-center bg-slate-200 py-20 px-14 relative'>
+          <section className='flex items-center justify-center bg-slate-200 py-20 md:px-14 relative'>
             <Image
               width={300}
               height={300}
-              className='absolute top-0 left-0'
+              className='absolute top-0 left-0 md:block hidden'
+              unoptimized
+              src="/images/dirty_nobg.png"
+              alt='Horror movie dirt stain.'
+            />
+            <Image
+              width={100}
+              height={100}
+              className='absolute top-0 left-0 md:hidden block'
+              unoptimized
+              src="/images/dirty_nobg.png"
+              alt='Horror movie dirt stain.'
+            />
+            <Image
+              width={100}
+              height={100}
+              className='absolute top-0 right-0 md:hidden block'
               unoptimized
               src="/images/dirty_nobg.png"
               alt='Horror movie dirt stain.'
@@ -151,7 +171,7 @@ export default function Home() {
             <Image
               width={300}
               height={300}
-              className='absolute top-0 right-0'
+              className='absolute top-0 right-0 md:block hidden'
               unoptimized
               src="/images/dirty_nobg.png"
               alt='Horror movie dirt stain.'
@@ -164,11 +184,11 @@ export default function Home() {
               src="/images/blood.png"
               alt='Horror movie blood stain.'
             />
-            <div className='flex w-[80%] '>
-              <div className={`text-black font-medium w-3/5  text-2xl flex items-center ${nosifer.className} tracking-widest`}>
+            <div className='flex w-full  justify-center md:w-[80%] relative z-20'>
+              <div className={`text-black font-medium md:w-3/5 text-lg md:text-2xl flex items-center text-center  ${nosifer.className} tracking-widest`}>
                 What are you waiting for? This Halloween, dive into our app and create the best photo edits with ease. Get spooky in seconds!
               </div>
-              <div className='w-2/5 flex items-center justify-start '>
+              <div className='w-2/5 items-center justify-start md:flex hidden '>
                 <Scene />
               </div>
             </div>
@@ -177,19 +197,19 @@ export default function Home() {
 
           <section className='py-20 px-14 flex items-center justify-center  overflow-hidden'>
             <div className='space-y-4'>
-              <h3 className={`text-center ${nosifer.className} text-4xl text-white`}>Gallery</h3>
+              <h3 className={`text-center ${nosifer.className} text-3xl md:text-4xl text-white`}>Gallery</h3>
               <PhotosPublic />
             </div>
           </section>
 
           <section className='flex overflow-hidden flex-col items-center justify-center px-4  py-20 md:px-14 '>
-            <h3 className={`text-center ${nosifer.className} text-4xl text-white mx-md:text-2xl`}>Collaborators</h3>
-            <div className='flex flex-col md:flex-row  items-center gap-2 w-full'>
-              <div className='flex w-1/2 justify-end'>
+            <h3 className={`text-center ${nosifer.className} md:text-4xl text-white text-3xl`}>Collaborators</h3>
+            <div className='flex flex-col md:flex-row  items-center gap-1 w-full '>
+              <div className='flex w-full md:w-1/2 justify-center md:justify-end '>
                 <Members />
               </div>
-              <div className='flex flex-col items-start gap-4 w-1/2 h-auto p-1  '>
-                <div className={`${nosifer.className} bg-black flex items-center border px-4 py-4  max-md:w-full w-[400px] rounded border-red-800 `}>
+              <div className='flex flex-col items-start gap-4 md:w-1/2  h-auto p-1 w-full '>
+                <div className={`${nosifer.className} bg-black flex items-center border px-4 py-4 w-full  md:w-[400px] rounded border-red-800 `}>
                   <img
                     src={`https://avatars.githubusercontent.com/u/132533056?v=4`}
                     alt='wa'
@@ -215,7 +235,7 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className={`${nosifer.className} bg-black flex items-center border px-4 py-4  max-md:w-full w-[400px]  rounded border-red-800 `}>
+                <div className={`${nosifer.className} bg-black flex items-center border px-4 py-4  w-full  md:w-[400px]  rounded border-red-800 `}>
                   <img
                     src={`https://avatars.githubusercontent.com/u/143843252?v=4`}
                     alt='wa'
@@ -241,7 +261,7 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className={`${nosifer.className} bg-black flex items-center border px-4 py-4  max-md:w-full w-[400px]  rounded border-red-800 `}>
+                <div className={`${nosifer.className} bg-black flex items-center border px-4 py-4  w-full  md:w-[400px]  rounded border-red-800 `}>
                   <img
                     src={`https://avatars.githubusercontent.com/u/131500236?v=4`}
                     alt='wa'

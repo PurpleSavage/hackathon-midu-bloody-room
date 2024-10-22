@@ -1,6 +1,9 @@
 "use client";
 import useImageStore from "@/stores/imageStore/image.store";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+
+
 
 function CountData() {
   const [lastImageAt, setLastImageAt] = useState<Date | null>(null);
@@ -8,6 +11,7 @@ function CountData() {
   const photos = useImageStore((state) => state.photos);
   const attemptTokens = useImageStore((state) => state.attemptTokens);
   const setAttemptTokens = useImageStore((state) => state.setAttemptTokens);
+  const pathname= usePathname()
 
   const calculateTimeRemaining = (lastDate: Date) => {
     const now = new Date();
@@ -45,8 +49,8 @@ function CountData() {
         body: JSON.stringify({ message: "Init lastImage" }),
       });
       if (!response.ok) {
-        console.log("Error en el fetch del PATCH", response);
-        console.log("Error en el fetch", await response.json());
+        console.log("Error en el fetch del PATCH");
+        console.log("Error en el fetch");
         return;
       }
     };
@@ -92,30 +96,35 @@ function CountData() {
     }
   }, [lastImageAt]);
   return (
-    <div className="w-11/12">
-      {attemptTokens === 0 || attemptTokens === null ? (
-        <div className="flex items-center justify-between text-nowrap flex-col">
-          {lastImageAt !== null ? (
-            <p className="font-medium text-xl">
-              {" "}
-              {`Reload: ${timeRemaining}`}
-            </p>
-          ) : null}
-          <p className="font-medium text-xl">
-            No <span className="font-bold text-red-600">credits! </span>
-          </p>
-        </div>
-      ) : (
-        <div className="flex items-center justify-center text-nowrap">
-          <p className="font-medium text-xl">
-            {attemptTokens === 1 ? `Credit ` : `Credits `}
-            <span className="font-bold text-red-800">
-              {attemptTokens === 1 ? `${attemptTokens}` : `${attemptTokens}`}
-            </span>
-          </p>
-        </div>
-      )}
-    </div>
+    <>
+      {
+        pathname !=='/'? 
+          <div className="w-11/12">
+            {attemptTokens === 0 || attemptTokens === null ? (
+              <div className="flex items-center justify-between text-nowrap flex-col">
+                {lastImageAt !== null ? (
+                  <p className="font-medium text-xl">
+                    {" "}
+                    {`Reload: ${timeRemaining}`}
+                  </p>
+                ) : null}
+                <p className="font-medium text-xl">
+                  No <span className="font-bold text-red-600">credits! </span>
+                </p>
+              </div>
+            ) : (
+              <div className="flex items-center justify-center text-nowrap">
+                <p className="font-medium text-xl">
+                  {attemptTokens === 1 ? `Credit ` : `Credits `}
+                  <span className="font-bold text-red-800">
+                    {attemptTokens === 1 ? `${attemptTokens}` : `${attemptTokens}`}
+                  </span>
+                </p>
+              </div>
+            )}
+          </div>:null
+      }
+    </>
   );
 }
 export default CountData;

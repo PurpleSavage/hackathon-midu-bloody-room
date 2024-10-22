@@ -9,7 +9,7 @@ const ZombieModel =dynamic(() => import('../components/ZombieModel'), {
 
 export default function Members() {
   return (
-    <div className="w-[500px] h-[600px] flex ">
+    <div className="w-[500px] h-[400px] md:h-[600px] flex ">
       <Canvas fallback={<div>Sorry, no WebGL supported!</div>} frameloop="always"
           shadows dpr={[1, 1.5]} gl={{ antialias: false }} camera={{ position: [5, 5, 5], fov: 50, near: 0.1, far: 100 }}>
           <ambientLight intensity={1} />

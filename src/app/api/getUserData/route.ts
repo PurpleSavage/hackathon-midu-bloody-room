@@ -2,9 +2,9 @@ import { initAdmin } from "@/service/intiFirebase";
 import { getAuth } from "firebase-admin/auth";
 import { getFirestore } from "firebase-admin/firestore";
 import { cookies } from "next/headers";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   const cookie = cookies();
   const token = cookie.get("auth-token");
 
