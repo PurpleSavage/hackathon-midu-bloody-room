@@ -56,12 +56,10 @@ function UploadedPhotoGenerated({ id, micPrompt }: Props) {
 
   //guardar en el firebase
   const saveImageToFirestore = async (url: string) => {
-    console.log("Si llega hasta el saveImageToFirestore con el url de: ", url);
     if (isSaving) return; // Si ya estamos guardando, evitar múltiples llamadas
     setIsSaving(true);
     try {
       if (photos.includes(url)) {
-        console.log("La imagen ya ha sido guardada previamente.");
         return;
       }
       const response = await fetch("/api/uploadimage", {
