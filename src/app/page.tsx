@@ -94,7 +94,7 @@ export default function Home() {
                   ease: "easeInOut",
                   delay: 0.3
                 }}
-                className='text-2xl tracking-widest z-10'>
+                className='text-2xl tracking-widest z-10 text-white'>
                 Upload a photo, use voice chat, and request your own custom horror montage. Let the terror unfold!
               </motion.p>
             </div>
@@ -197,7 +197,7 @@ export default function Home() {
                   >
                   </img>
                   <div className='flex flex-col gap-3 items-center justify-center w-full h-full'>
-                    <p className='w-full text-center text-xs truncate'>
+                    <p className='w-full text-center text-white  text-xs truncate'>
                       DeyCasGuerrero
                     </p>
                     <div className='w-full flex items-center justify-center gap-4'>
@@ -223,7 +223,7 @@ export default function Home() {
                   >
                   </img>
                   <div className='flex flex-col gap-3 items-center justify-center w-full h-full'>
-                    <p className='w-full text-xs  text-center'>
+                    <p className='w-full text-xs text-white   text-center'>
                       Ariano2700
                     </p>
                     <div className='w-full flex items-center justify-center gap-4'>
@@ -249,7 +249,7 @@ export default function Home() {
                   >
                   </img>
                   <div className='flex flex-col gap-3 items-center justify-center w-full h-full'>
-                    <p className='w-full text-xs  text-center'>
+                    <p className='w-full text-xs text-white  text-center'>
                       PurpleSavage
                     </p>
                     <div className='w-full flex items-center justify-center gap-4'>
