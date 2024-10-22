@@ -14,6 +14,8 @@ function UploadedPhoto() {
   const micData = useMicStore((state) => state.micData);
   const showUploadedPhoto = useMicStore((state) => state.showUploadedPhoto);
   const [loading, setLoading] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+
   useEffect(() => {
     const fetchPhotos = async () => {
       const response = await fetch("/api/getUserData");
@@ -34,18 +36,35 @@ function UploadedPhoto() {
       setLoading(false);
     }
   }, []);
+  useEffect(() => {
+    setImageLoaded(false);
+  }, [resultData]);
   return (
     <>
       {/* Si NO hay micData, mostrar imagen subida o el carrusel */}
       {!micData ? (
         <div className="relative w-11/12 h-5/6 flex flex-col items-center justify-center rounded-lg grow py-5">
           {resultData ? (
-            // Mostrar imagen subida si existe
-            <img
-              src={resultData.info.url}
-              alt={resultData.info.public_id}
-              className="w-full max-w-xl rounded-md max-h-max"
-            />
+            <div className="w-full max-w-xl flex flex-col items-center justify-center grow">
+              {!imageLoaded && (
+                <div className="flex flex-col items-center justify-center border bg-gray-200 border-red-800 h-96 w-[340px] animate-pulse grow">
+                  <FaImage size={80} className="text-red-800 mb-4" />
+                  <div
+                    className={`text-red-800 text-lg text-center ${nosifer.className}`}
+                  >
+                    Loading image...
+                  </div>
+                </div>
+              )}
+              <img
+                src={resultData.info.url}
+                alt={resultData.info.public_id}
+                className={`w-full max-w-xl rounded-md max-h-max ${
+                  imageLoaded ? "block" : "hidden"
+                }`}
+                onLoad={() => setImageLoaded(true)} // Cambia el estado cuando la imagen termine de cargar
+              />
+            </div>
           ) : loading === true ? (
             <div className="flex flex-col items-center justify-center w-11/12 h-full rounded-lg">
               <FaSpinner
@@ -67,7 +86,11 @@ function UploadedPhoto() {
             // Mostrar placeholder si no hay imagen subida ni fotos en el carrusel
             <div className="bg-white border-red-800 border-4 w-[340px] rounded-lg h-96 flex flex-col items-center justify-center">
               <FaImage size={80} className="text-red-800 mb-4" />
-              <div className={`text-red-800 text-lg text-center ${nosifer.className}`}>Start uploading images</div>
+              <div
+                className={`text-red-800 text-lg text-center ${nosifer.className}`}
+              >
+                Start uploading images
+              </div>
             </div>
           )}
         </div>

@@ -19,6 +19,9 @@ function UploadedPhotoGenerated({ id, micPrompt }: Props) {
   const [hasImageLoaded, setHasImageLoaded] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [showGeneratedMessage, setShowGeneratedMessage] = useState(false);
+  const [imageStatus, setImageStatus] = useState<
+    "generating" | "generated" | "error" | null
+  >(null);
   const maxRetries = 3; // Número máximo de reintentos
   const addPhoto = useImageStore((state) => state.addPhoto);
   const photos = useImageStore((state) => state.photos);
@@ -90,8 +93,6 @@ function UploadedPhotoGenerated({ id, micPrompt }: Props) {
         }
         return;
       }
-
-
     } catch (error) {
       console.error("Error en la solicitud:", error);
     } finally {
@@ -120,6 +121,7 @@ function UploadedPhotoGenerated({ id, micPrompt }: Props) {
     try {
       setHasImageLoaded(true); // Solo marcar como cargada la primera vez
       setLoading(false);
+      setImageStatus("generating");
 
       if (photos.length === 0) {
         setAttemptTokens(attemptTokens - 1);
@@ -128,6 +130,7 @@ function UploadedPhotoGenerated({ id, micPrompt }: Props) {
         // Guardar la imagen en Firestore
         await saveImageToFirestore(imageUrl);
         setLoading(true);
+        setImageStatus("generated");
         return;
       }
       setAttemptTokens(attemptTokens - 1);
@@ -136,6 +139,7 @@ function UploadedPhotoGenerated({ id, micPrompt }: Props) {
       // Guardar la imagen en Firestore
       await saveImageToFirestore(imageUrl);
       setLoading(true);
+      setImageStatus("generated");
     } catch (error) {
       console.error("Error al guardar la imagen:", error);
     }
@@ -170,14 +174,14 @@ function UploadedPhotoGenerated({ id, micPrompt }: Props) {
 
   // Mostrar el mensaje por 5 segundos cuando la imagen esté cargada
   useEffect(() => {
-    if (hasImageLoaded) {
+    if (imageStatus === "generated") {
       setShowGeneratedMessage(true);
       const timer = setTimeout(() => {
         setShowGeneratedMessage(false); // Ocultar el mensaje después de 5 segundos
-      }, 5000);
+      }, 2500);
       return () => clearTimeout(timer);
     }
-  }, [hasImageLoaded]);
+  }, [imageStatus]);
 
   return (
     <div className="relative flex flex-col gap-5 items-center justify-center w-full h-full py-3">
@@ -191,20 +195,24 @@ function UploadedPhotoGenerated({ id, micPrompt }: Props) {
             </div>
           </div>
         </div>
-      ) : showGeneratedMessage ? (
+      ) : showGeneratedMessage && imageStatus === "generated" ? (
         // Mostrar mensaje cuando la imagen esté generada por 5 segundos
-        <div className="fixed top-0 bottom-0 right-0 left-0 bg-slate-200/50 z-40">
-          <div className={`text-green-400 ${nosifer.className}`}>
-            Image generated!{" "}
+        <div className="fixed flex items-center justify-center top-0 bottom-0 right-0 left-0 bg-slate-200/50 z-40">
+          <div className="flex flex-col items-center justify-center w-11/12 h-full rounded-lg">
+            <div className={`text-green-400 ${nosifer.className}`}>
+              Image generated!{" "}
+            </div>
           </div>
         </div>
       ) : (
         // Mostrar error si no se puede cargar la imagen después de varios intentos
         !imageUrl && (
-          <div className="fixed top-0 bottom-0 right-0 left-0 bg-slate-200/50 z-40">
-            <div className={`text-red-800 ${nosifer.className} text-lg`}>
-              <p>The image could not be loaded.</p>
-              <p>Reload this page</p>
+          <div className="fixed flex items-center justify-center top-0 bottom-0 right-0 left-0 bg-slate-200/50 z-40">
+            <div className="flex flex-col items-center justify-center w-11/12 h-full rounded-lg">
+              <div className={`text-red-800 ${nosifer.className} text-lg`}>
+                <p>The image could not be loaded.</p>
+                <p>Reload this page</p>
+              </div>
             </div>
           </div>
         )
