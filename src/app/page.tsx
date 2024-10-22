@@ -182,88 +182,86 @@ export default function Home() {
             </div>
           </section>
 
-          <section className='flex  flex-col items-center justify-center px-4  py-20 md:px-14 '>
+          <section className='flex overflow-hidden flex-col items-center justify-center px-4  py-20 md:px-14 '>
             <h3 className={`text-center ${nosifer.className} text-4xl text-white m
               x-md:text-2xl`}>Collaborators</h3>
-            <div className='flex max-md:flex-col items-center gap-5'>
+            <div className='flex flex-col items-center gap-2 w-full'>
               <Members />
               <div className='flex flex-col items-center gap-4 w-full h-auto p-1 '>
-
-
-              </div>
-              <div className={`${nosifer.className} bg-black flex items-center border-2 px-2 py-1 w-full rounded border-red-500 hover:text-red-800`}>
-                <img
-                  src={`https://avatars.githubusercontent.com/u/132533056?v=4`}
-                  alt='wa'
-                  className='w-10 h-10 rounded-full'
-                >
-                </img>
-                <div className='flex flex-col gap-3 items-center justify-center w-full h-full'>
-                  <p className='w-full text-center'>
-                    PurpleSavage
-                  </p>
-                  <div className='w-full flex items-center justify-center gap-4'>
-                    <div >
-                      <Link href={`https://github.com/PurpleSavage`}>
-                        <FaGithub size={30} className='bg-black p-1' />
-                      </Link>
-                    </div>
-                    <div >
-                      <Link href={`https://www.linkedin.com/in/purplesavage/`}>
-                        <FaLinkedinIn size={30} className='bg-blue-500 p-1' />
-                      </Link>
+                <div className={`${nosifer.className} bg-black flex items-center border-2 px-2 py-1 max-md:w-full w-[400px] rounded border-red-500 `}>
+                  <img
+                    src={`https://avatars.githubusercontent.com/u/132533056?v=4`}
+                    alt='wa'
+                    className='w-10 h-10 rounded-full'
+                  >
+                  </img>
+                  <div className='flex flex-col gap-3 items-center justify-center w-full h-full'>
+                    <p className='w-full text-center text-xs truncate'>
+                      DeyCasGuerrero
+                    </p>
+                    <div className='w-full flex items-center justify-center gap-4'>
+                      <div >
+                        <Link href={`https://github.com/DeyCasGuerrero`}>
+                          <FaGithub size={30} className='bg-black p-1' />
+                        </Link>
+                      </div>
+                      <div >
+                        <Link href={`https://www.linkedin.com/in/purplesavage/`}>
+                          <FaLinkedinIn size={30} className='bg-blue-500 p-1' />
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div className={`${nosifer.className} bg-black flex items-center border-2 px-2 py-1 w-full rounded border-red-500 hover:text-red-800`}>
-                <img
-                  src={`https://avatars.githubusercontent.com/u/143843252?v=4`}
-                  alt='wa'
-                  className='w-10 h-10 rounded-full'
-                >
-                </img>
-                <div className='flex flex-col gap-3 items-center justify-center w-full h-full'>
-                  <p className='w-full text-center'>
-                  Ariano2700
-                  </p>
-                  <div className='w-full flex items-center justify-center gap-4'>
-                    <div >
-                      <Link href={`https://github.com/Ariano2700`}>
-                        <FaGithub size={30} className='bg-black p-1' />
-                      </Link>
-                    </div>
-                    <div >
-                      <Link href={`https://www.linkedin.com/in/purplesavage/`}>
-                        <FaLinkedinIn size={30} className='bg-blue-500 p-1' />
-                      </Link>
+                <div className={`${nosifer.className} bg-black flex items-center border-2 px-2 py-1  max-md:w-full w-[400px]  rounded border-red-500 `}>
+                  <img
+                    src={`https://avatars.githubusercontent.com/u/143843252?v=4`}
+                    alt='wa'
+                    className='w-10 h-10 rounded-full'
+                  >
+                  </img>
+                  <div className='flex flex-col gap-3 items-center justify-center w-full h-full'>
+                    <p className='w-full text-xs  text-center'>
+                      Ariano2700
+                    </p>
+                    <div className='w-full flex items-center justify-center gap-4'>
+                      <div >
+                        <Link href={`https://github.com/Ariano2700`}>
+                          <FaGithub size={30} className='bg-black p-1' />
+                        </Link>
+                      </div>
+                      <div >
+                        <Link href={`https://www.linkedin.com/in/purplesavage/`}>
+                          <FaLinkedinIn size={30} className='bg-blue-500 p-1' />
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div className={`${nosifer.className} bg-black flex items-center border-2 px-2 py-1 w-full rounded border-red-500 hover:text-red-800`}>
-                <img
-                  src={`https://avatars.githubusercontent.com/u/131500236?v=4`}
-                  alt='wa'
-                  className='w-10 h-10 rounded-full'
-                >
-                </img>
-                <div className='flex flex-col gap-3 items-center justify-center w-full h-full'>
-                  <p className='w-full text-center'>
-                    DeyCasGuerrero
-                  </p>
-                  <div className='w-full flex items-center justify-center gap-4'>
-                    <div >
-                      <Link href={`https://github.com/DeyCasGuerrero`}>
-                        <FaGithub size={30} className='bg-black p-1' />
-                      </Link>
-                    </div>
-                    <div >
-                      <Link href={`https://www.linkedin.com/in/purplesavage/`}>
-                        <FaLinkedinIn size={30} className='bg-blue-500 p-1' />
-                      </Link>
+                <div className={`${nosifer.className} bg-black flex items-center border-2 px-2 py-1  max-md:w-full w-[400px]  rounded border-red-500 `}>
+                  <img
+                    src={`https://avatars.githubusercontent.com/u/131500236?v=4`}
+                    alt='wa'
+                    className='w-10 h-10 rounded-full'
+                  >
+                  </img>
+                  <div className='flex flex-col gap-3 items-center justify-center w-full h-full'>
+                    <p className='w-full text-xs  text-center'>
+                      PurpleSavage
+                    </p>
+                    <div className='w-full flex items-center justify-center gap-4'>
+                      <div >
+                        <Link href={`https://github.com/purplesavage`}>
+                          <FaGithub size={30} className='bg-black p-1' />
+                        </Link>
+                      </div>
+                      <div >
+                        <Link href={`https://www.linkedin.com/in/purplesavage/`}>
+                          <FaLinkedinIn size={30} className='bg-blue-500 p-1' />
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>
