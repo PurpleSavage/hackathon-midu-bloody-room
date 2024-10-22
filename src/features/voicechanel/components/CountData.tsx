@@ -49,8 +49,6 @@ function CountData() {
         console.log("Error en el fetch", await response.json());
         return;
       }
-      const result = await response.json();
-      //console.log("Update lastImageDate", result);
     };
     fetchUpdateLastImage();
   }, []);
@@ -94,28 +92,25 @@ function CountData() {
     }
   }, [lastImageAt]);
   return (
-    <div className="w-11/12 mb-12 grow">
+    <div className="w-11/12">
       {attemptTokens === 0 || attemptTokens === null ? (
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between text-nowrap flex-col">
           {lastImageAt !== null ? (
             <p className="font-medium text-xl">
               {" "}
-              {`Recarga de tokens en: ${timeRemaining}`}
+              {`Reload: ${timeRemaining}`}
             </p>
           ) : null}
           <p className="font-medium text-xl">
-            ¡Te quedaste sin{" "}
-            <span className="font-bold text-red-600">toknes! </span>
+            No <span className="font-bold text-red-600">credits! </span>
           </p>
         </div>
       ) : (
-        <div className="flex items-center justify-end">
+        <div className="flex items-center justify-center text-nowrap">
           <p className="font-medium text-xl">
-            {attemptTokens === 1 ? `Te queda ` : `Te quedan `}
-            <span className="font-bold text-red-600">
-              {attemptTokens === 1
-                ? `${attemptTokens} token`
-                : `${attemptTokens} tokens`}
+            {attemptTokens === 1 ? `Credit ` : `Credits `}
+            <span className="font-bold text-red-800">
+              {attemptTokens === 1 ? `${attemptTokens}` : `${attemptTokens}`}
             </span>
           </p>
         </div>
