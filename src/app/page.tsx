@@ -70,7 +70,7 @@ export default function Home() {
             </motion.div>
 
 
-            <div className={`gap-12  w-full md:w-3/5 lg:px-14 px-5 flex items-center justify-center
+            <div className={`gap-12  w-full md:w-3/5 lg:px-14 px-5 flex items-center justify-center mt-10
               md:h-[650px] flex-col `}>
               <div className="flex flex-wrap items-center justify-center w-full  overflow-hidden">
                 {title.split('').map((letter, i) => (

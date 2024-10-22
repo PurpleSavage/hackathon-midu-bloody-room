@@ -1,7 +1,7 @@
 "use client"
 import { nosifer } from "@/fonts/fonts";
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import styles from "../css/animetionLoader.module.css"
 
 import { IoCloudDownloadOutline } from "react-icons/io5";
@@ -14,12 +14,7 @@ export default function SectionModel() {
     const [isClicked, setIsClicked] = useState(false);
     const [isClickScreen, setIsClickScreen] = useState(false);
 
-    useEffect(() => {
-        console.log(isClicked);
-    }, [isClicked]); // 
-
-
-
+     
     return (
         <section className='h-screen w-full flex flex-col relative items-center justify-center overflow-hidden' >
             <motion.div

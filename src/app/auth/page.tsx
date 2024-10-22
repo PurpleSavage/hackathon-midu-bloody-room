@@ -44,7 +44,6 @@ export default function Auth() {
             if(photo.length>0){
                 setSession(photo)
             }
-            console.log('hola')
             router.push('/voicechanel')
 
         } catch (error) {

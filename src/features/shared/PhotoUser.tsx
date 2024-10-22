@@ -20,10 +20,10 @@ export default function PhotoUser() {
     router.push('/')
   }
   return (
-    <>
+    <div className="w-full flex justify-end gap-4">
       {
         photo ? 
-        <div className="md:flex hidden size-[60px]  items-center justify-center rounded-full p-1 bg-slate-200">
+        <div className="md:flex  hidden size-[45px]   items-center justify-center rounded-full p-1 bg-slate-200">
             {
             photo && photo.length?
               <img 
@@ -37,9 +37,9 @@ export default function PhotoUser() {
       }
       {
         photo ? <button className={`bg-red-800 md:inline-block hidden text-white px-4 py-1 rounded-lg flex-none
-           ${nosifer.className} text-base hover:text-red-800 hover:bg-slate-300`}
-           onClick={logOut}>log out</button>:null
+           ${nosifer.className} text-xs md:text-base hover:text-red-800 hover:bg-slate-300 `}
+           onClick={logOut}>log out</button>:null 
       }
-    </>
+    </div>
   )
 }
