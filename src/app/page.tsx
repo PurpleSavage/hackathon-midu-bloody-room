@@ -183,12 +183,13 @@ export default function Home() {
           </section>
 
           <section className='flex overflow-hidden flex-col items-center justify-center px-4  py-20 md:px-14 '>
-            <h3 className={`text-center ${nosifer.className} text-4xl text-white m
-              x-md:text-2xl`}>Collaborators</h3>
-            <div className='flex flex-col items-center gap-2 w-full'>
-              <Members />
-              <div className='flex flex-col items-center gap-4 w-full h-auto p-1 '>
-                <div className={`${nosifer.className} bg-black flex items-center border-2 px-2 py-1 max-md:w-full w-[400px] rounded border-red-500 `}>
+            <h3 className={`text-center ${nosifer.className} text-4xl text-white mx-md:text-2xl`}>Collaborators</h3>
+            <div className='flex flex-col md:flex-row  items-center gap-2 w-full'>
+              <div className='flex w-1/2 justify-end'>
+                <Members />
+              </div>
+              <div className='flex flex-col items-start gap-4 w-1/2 h-auto p-1  '>
+                <div className={`${nosifer.className} bg-black flex items-center border px-4 py-4  max-md:w-full w-[400px] rounded border-red-800 `}>
                   <img
                     src={`https://avatars.githubusercontent.com/u/132533056?v=4`}
                     alt='wa'
@@ -206,15 +207,15 @@ export default function Home() {
                         </Link>
                       </div>
                       <div >
-                        <Link href={`https://www.linkedin.com/in/purplesavage/`}>
-                          <FaLinkedinIn size={30} className='bg-blue-500 p-1' />
+                        <Link href={`https://www.linkedin.com/in/jeferson-castillo-276774323/`}>
+                          <FaLinkedinIn size={25} className='bg-blue-500 p-1' />
                         </Link>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <div className={`${nosifer.className} bg-black flex items-center border-2 px-2 py-1  max-md:w-full w-[400px]  rounded border-red-500 `}>
+                <div className={`${nosifer.className} bg-black flex items-center border px-4 py-4  max-md:w-full w-[400px]  rounded border-red-800 `}>
                   <img
                     src={`https://avatars.githubusercontent.com/u/143843252?v=4`}
                     alt='wa'
@@ -232,15 +233,15 @@ export default function Home() {
                         </Link>
                       </div>
                       <div >
-                        <Link href={`https://www.linkedin.com/in/purplesavage/`}>
-                          <FaLinkedinIn size={30} className='bg-blue-500 p-1' />
+                        <Link href={`www.linkedin.com/in/ariano-selim-alban-gomez-073325332`}>
+                          <FaLinkedinIn size={25} className='bg-blue-500 p-1' />
                         </Link>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <div className={`${nosifer.className} bg-black flex items-center border-2 px-2 py-1  max-md:w-full w-[400px]  rounded border-red-500 `}>
+                <div className={`${nosifer.className} bg-black flex items-center border px-4 py-4  max-md:w-full w-[400px]  rounded border-red-800 `}>
                   <img
                     src={`https://avatars.githubusercontent.com/u/131500236?v=4`}
                     alt='wa'
@@ -258,8 +259,8 @@ export default function Home() {
                         </Link>
                       </div>
                       <div >
-                        <Link href={`https://www.linkedin.com/in/purplesavage/`}>
-                          <FaLinkedinIn size={30} className='bg-blue-500 p-1' />
+                        <Link href={`www.linkedin.com/in/jean-paul-zurita-palomino-0411072a3`}>
+                          <FaLinkedinIn size={25} className='bg-blue-500 p-1' />
                         </Link>
                       </div>
                     </div>
