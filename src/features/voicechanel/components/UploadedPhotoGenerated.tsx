@@ -91,8 +91,7 @@ function UploadedPhotoGenerated({ id, micPrompt }: Props) {
         return;
       }
 
-      const responseData = await response.json(); // Si la respuesta es correcta
-      console.log("Imagen guardada correctamente:", responseData);
+
     } catch (error) {
       console.error("Error en la solicitud:", error);
     } finally {
@@ -184,7 +183,7 @@ function UploadedPhotoGenerated({ id, micPrompt }: Props) {
     <div className="relative flex flex-col gap-5 items-center justify-center w-full h-full py-3">
       {loading && imageUrl ? (
         // Mostrar loader mientras la imagen está cargando
-        <div className="fixed top-0 bottom-0 right-0 left-0 bg-slate-200/50 z-40">
+        <div className="fixed flex items-center justify-center top-0 bottom-0 right-0 left-0 bg-slate-200/50 z-40">
           <div className="flex flex-col items-center justify-center w-11/12 h-full rounded-lg">
             <PiSpinnerBold className="animate-spin text-red-800 text-5xl mb-4" />
             <div className={`text-red-800 ${nosifer.className}`}>

@@ -2,7 +2,7 @@
 import useImageStore from "@/stores/imageStore/image.store";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-
+import { calculateTimeRemaining } from "@/utils/calculateTimeRemaining";
 function CountData() {
   const [lastImageAt, setLastImageAt] = useState<Date | null>(null);
   const [timeRemaining, setTimeRemaining] = useState<string>("Calculando...");
@@ -10,30 +10,6 @@ function CountData() {
   const attemptTokens = useImageStore((state) => state.attemptTokens);
   const setAttemptTokens = useImageStore((state) => state.setAttemptTokens);
   const pathname = usePathname();
-
-  const calculateTimeRemaining = (lastDate: Date) => {
-    const now = new Date();
-    const timeDiffMs = now.getTime() - lastDate.getTime();
-
-    // Comprobamos que el tiempo no es negativo
-    if (timeDiffMs < 0) {
-      return "In a few seconds...";
-    }
-
-    const timeDiffHrs = 24 - timeDiffMs / (1000 * 60 * 60); // Diferencia en horas
-
-    // Si el tiempo restante es negativo o cero, ya pasaron 24h
-    if (timeDiffHrs <= 0) {
-      return "In a few seconds...";
-    }
-
-    if (timeDiffHrs >= 1) {
-      return `${Math.floor(timeDiffHrs)}h`;
-    } else {
-      const timeDiffMins = Math.floor(timeDiffHrs * 60);
-      return `${timeDiffMins}m`;
-    }
-  };
 
   //inicializa con la verificacion si es que ya pasaron las 24 horas o si lastImageAt es null y actualiza el dato
   useEffect(() => {
@@ -49,8 +25,7 @@ function CountData() {
         body: JSON.stringify({ message: "Init lastImage" }),
       });
       if (!response.ok) {
-        console.log("Error en el fetch del PATCH");
-        console.log("Error en el fetch");
+        console.log("Error en la imagen");
         return;
       }
     };
@@ -82,7 +57,7 @@ function CountData() {
     setTimeout(() => {
       fetchLastImageAt();
     }, 1000);
-  }, [photos]);
+  }, [photos,setAttemptTokens]);
 
   // Actualizar cada minuto el contador si es que hay
   useEffect(() => {

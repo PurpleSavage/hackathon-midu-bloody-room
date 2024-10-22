@@ -34,7 +34,6 @@ function UploadBtn() {
               // Verifica que las propiedades clave existan antes de establecer el estado
               if (parsedResult && parsedResult.info && parsedResult.info.url) {
                 setResultData(parsedResult);
-                console.log("INFO", parsedResult.info);
               } else {
                 console.error(
                   "El resultado no tiene la estructura esperada",

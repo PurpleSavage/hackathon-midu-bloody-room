@@ -32,7 +32,6 @@ export default function Microphone() {
 
       const result = await response.json();
       setMicData(result.msg);
-      console.log(result);
     } catch (error) {
       console.log(error);
     }
