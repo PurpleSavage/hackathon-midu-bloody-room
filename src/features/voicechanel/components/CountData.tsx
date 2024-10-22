@@ -99,22 +99,22 @@ function CountData() {
     <>
       {
         pathname !=='/'? 
-          <div className="w-11/12">
+          <div className="">
             {attemptTokens === 0 || attemptTokens === null ? (
               <div className="flex items-center justify-between text-nowrap flex-col">
                 {lastImageAt !== null ? (
-                  <p className="font-medium text-xl">
+                  <p className="font-medium text-xl text-black">
                     {" "}
                     {`Reload: ${timeRemaining}`}
                   </p>
                 ) : null}
-                <p className="font-medium text-xl">
+                <p className="font-medium text-xl text-black">
                   No <span className="font-bold text-red-600">credits! </span>
                 </p>
               </div>
             ) : (
               <div className="flex items-center justify-center text-nowrap">
-                <p className="font-medium text-xl">
+                <p className="font-medium text-xl text-black">
                   {attemptTokens === 1 ? `Credit ` : `Credits `}
                   <span className="font-bold text-red-800">
                     {attemptTokens === 1 ? `${attemptTokens}` : `${attemptTokens}`}

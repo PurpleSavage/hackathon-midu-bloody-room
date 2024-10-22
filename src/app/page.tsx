@@ -143,7 +143,7 @@ export default function Home() {
 
           <SectionModel />
 
-          <section className='flex items-center justify-center bg-slate-200 py-20 md:px-14 relative'>
+          <section className='flex items-center justify-center bg-slate-200 py-20 md:px-14 relative mt-10'>
             <Image
               width={300}
               height={300}

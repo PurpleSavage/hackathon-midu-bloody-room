@@ -15,7 +15,7 @@ function VoiceChanelPage() {
         alt="Horror movie blood stain."
       />
       <Image
-        width={200}
+        width={100}
         height={100}
         className="absolute bottom-0 right-20 drop-shadow-lg"
         unoptimized
@@ -23,7 +23,7 @@ function VoiceChanelPage() {
         alt="Horror movie blood stain."
       />
       <Image
-        width={300}
+        width={100}
         height={100}
         className="absolute -top-20 right-72 drop-shadow-lg hidden"
         unoptimized
@@ -34,7 +34,7 @@ function VoiceChanelPage() {
       <div className="absolute z-10 flex flex-col bottom-0 right-0 left-0 top-0">
         <Header />
         <div className="grow overflow-y-auto">
-          <div className=" flex flex-col justify-center items-center">
+          <div className=" flex flex-col justify-center items-center ">
             <UploadedPhoto />
           </div>
           <UploadBtn />
