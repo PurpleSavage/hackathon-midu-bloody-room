@@ -3,13 +3,12 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 const firebaseConfig = {
-  apiKey: "AIzaSyAkHQwdj6LyZPiy16l2Ky0RfBI8_7gMt6M",
-  authDomain: "midu-hackathon.firebaseapp.com",
-  projectId: "midu-hackathon",
-  storageBucket: "midu-hackathon.appspot.com",
-  messagingSenderId: "44709843145",
-  appId: "1:44709843145:web:d9843178e3d881ef023d18",
-  measurementId: "G-CE4Q1GQ7N6"
+  apiKey:process.env.NEXT_APIKEY_FIREBASE,
+  authDomain:process.env.NEXT_AUTH_DOMAIN,
+  projectId:process.env.NEXT_PROJECT_ID,
+  storageBucket:process.env.NEXT_STORAGE_BUCKET,
+  messagingSenderId:process.env.NEXT_MESSASGING_SENDER_ID,
+  measurementId:process.env.NEXT_MESSURE_ID
 };
 
 // Initialize Firebase
