@@ -18,6 +18,7 @@ function UploadedPhotoGenerated({ id, micPrompt }: Props) {
   const [loading, setLoading] = useState(false);
   const [hasImageLoaded, setHasImageLoaded] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [showGeneratedMessage, setShowGeneratedMessage] = useState(false);
   const maxRetries = 3; // Número máximo de reintentos
   const addPhoto = useImageStore((state) => state.addPhoto);
   const photos = useImageStore((state) => state.photos);
@@ -37,7 +38,6 @@ function UploadedPhotoGenerated({ id, micPrompt }: Props) {
         width: "1870",
         height: "1250",
       });
-      console.log("Generated URL for new user: ", url);
       setImageUrl(url);
       setLoading(true);
     } else {
@@ -49,7 +49,6 @@ function UploadedPhotoGenerated({ id, micPrompt }: Props) {
         width: "1870",
         height: "1250",
       });
-      console.log("Generated URL for USER EXISTIED: ", url);
       setImageUrl(url);
       setLoading(true);
     }
@@ -65,9 +64,7 @@ function UploadedPhotoGenerated({ id, micPrompt }: Props) {
         console.log("La imagen ya ha sido guardada previamente.");
         return;
       }
-      console.log("Enviando URL a Firestore:", url);
-      //const response = await fetch("/api/uploadImage", {
-      const response = await fetch(`http://localhost:3000/api/uploadImage`, {
+      const response = await fetch("/api/uploadimage", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -120,8 +117,8 @@ function UploadedPhotoGenerated({ id, micPrompt }: Props) {
   const handleImageLoad = async () => {
     if (hasImageLoaded || !imageUrl) return; // Asegurarse de que solo se ejecute una vez
     if (photos.includes(imageUrl)) {
-      console.log("La imagen ya ha sido guardada previamente.");
-      //setLoading(false);
+      //console.log("La imagen ya ha sido guardada previamente.");
+      setLoading(false);
       return;
     }
     try {
@@ -173,26 +170,43 @@ function UploadedPhotoGenerated({ id, micPrompt }: Props) {
     }
   }, [imageUrl]); // Ejecuta cuando imageUrl cambia
 
+  // Mostrar el mensaje por 5 segundos cuando la imagen esté cargada
+  useEffect(() => {
+    if (hasImageLoaded) {
+      setShowGeneratedMessage(true);
+      const timer = setTimeout(() => {
+        setShowGeneratedMessage(false); // Ocultar el mensaje después de 5 segundos
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [hasImageLoaded]);
+
   return (
-    <div className="flex flex-col gap-5 items-center justify-center w-full h-full">
+    <div className="flex flex-col gap-5 items-center justify-center w-full h-full py-3">
       {loading && imageUrl ? (
         // Mostrar loader mientras la imagen está cargando
         <div className="flex flex-col items-center justify-center w-11/12 h-full rounded-lg">
           <PiSpinnerBold className="animate-spin text-red-800 text-5xl mb-4" />
           <div className={`text-red-800 ${nosifer.className}`}>
-            Generando imagen...
+            Generating image...{" "}
           </div>
+        </div>
+      ) : showGeneratedMessage ? (
+        // Mostrar mensaje cuando la imagen esté generada por 5 segundos
+        <div className={`text-green-400 ${nosifer.className}`}>
+          Image generated!{" "}
         </div>
       ) : (
         // Mostrar error si no se puede cargar la imagen después de varios intentos
         !imageUrl && (
           <div className={`text-red-800 ${nosifer.className} text-lg`}>
-            No se pudo cargar la imagen.
+            <p>The image could not be loaded.</p>
+            <p>Reload this page</p>
           </div>
         )
       )}
       {imageUrl && (
-        <div className="flex flex-col items-center justify-center gap-6">
+        <div className="flex flex-col items-center justify-center">
           <ImageCarousel
             handleImageError={handleImageError}
             handleImageLoad={handleImageLoad}

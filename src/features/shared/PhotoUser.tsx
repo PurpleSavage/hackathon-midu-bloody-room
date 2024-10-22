@@ -35,7 +35,7 @@ export default function PhotoUser() {
         </div> :null
       }
       {
-        photo ? <button className={`bg-red-800 text-white px-4 py-1 rounded-lg
+        photo ? <button className={`bg-red-800 text-white px-4 py-1 rounded-lg flex-none
            ${nosifer.className} text-base hover:text-red-800 hover:bg-slate-300`}
            onClick={logOut}>log out</button>:null
       }

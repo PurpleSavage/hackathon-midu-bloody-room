@@ -1,8 +1,9 @@
 "use client";
 import useImageStore from "@/stores/imageStore/image.store";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import DownloadImage from "./DownloadImage";
+import ShareImage from "./ShareImage";
 
 type Props = {
   handleImageLoad: () => void;
@@ -16,45 +17,6 @@ function ImageCarousel(props: Props) {
 
   //////////////////////
   const [activeIndex, setActiveIndex] = useState(0);
-  const numSlides = photos.length;
-  const startXRef = useRef<number | null>(null);
-
-  const handleStart = (
-    e: React.PointerEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>
-  ) => {
-    const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
-    startXRef.current = clientX;
-  };
-  const handleEnd = (
-    e: React.PointerEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>
-  ) => {
-    if (startXRef.current === null) return;
-
-    const clientX =
-      "changedTouches" in e ? e.changedTouches[0].clientX : e.clientX;
-    const deltaX = startXRef.current - clientX;
-
-    if (deltaX > 50) {
-      handleNext();
-    } else if (deltaX < -50) {
-      handlePrev();
-    }
-
-    startXRef.current = null; // Reseteamos la posición inicial
-  };
-
-  // Función para manejar cuando se mueve hacia la izquierda
-  const handlePrev = () => {
-    setActiveIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : 0));
-  };
-
-  // Función para manejar cuando se mueve hacia la derecha
-  const handleNext = () => {
-    setActiveIndex((prevIndex) =>
-      prevIndex < numSlides - 1 ? prevIndex + 1 : numSlides - 1
-    );
-  };
-  ////////////////////
   useEffect(() => {
     if (photos.length > 0) return;
     const fetchPhotos = async () => {
@@ -71,23 +33,31 @@ function ImageCarousel(props: Props) {
   }, []);
 
   return (
-    <>
-      <div className="flex items-center justify-center">
+    <section className="flex max-md:flex-col gap-2 max-md:gap-3 items-center justify-center">
+      <div className="relative flex items-center justify-center">
         {photos.length > 0 && (
-          <div className="flex items-center justify-center mb-6 flex-col gap-6 min-h-[570px]">
-            <img
-              src={photos[activeIndex]} // Mostrar la imagen activa
-              alt={`Generated image ${activeIndex + 1}`}
-              className="w-full max-w-xl max-h-[570px] rounded-md"
-              onLoad={handleImageLoad}
-              onError={handleImageError}
-            />
-            <DownloadImage activeIndex={activeIndex} photos={photos} />
-          </div>
+          <>
+            <div className="absolute flex flex-col gap-3 top-0 right-0">
+              <DownloadImage activeIndex={activeIndex} photos={photos} />
+              <ShareImage activeIndex={activeIndex} photos={photos} />
+            </div>
+            <div className="flex items-center justify-center flex-col gap-6 h-[570px]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={photos[activeIndex]} // Mostrar la imagen activa
+                alt={`Generated image ${activeIndex + 1}`}
+                className="w-[520px] h-[570px] rounded-md aspect-auto"
+                onLoad={handleImageLoad}
+                onError={handleImageError}
+              />
+            </div>
+          </>
         )}
       </div>
+
+      {/* Galería de imágenes con scroll vertical u horizontal */}
       <motion.div
-        className="relative w-full flex flex-col items-center overflow-hidden"
+        className="flex flex-col items-center overflow-x-hidden overflow-y-auto max-h-[570px] max-md:max-h-[500px] max-md:flex-row max-md:w-[500px] max-[550px]:w-[400px] max-[440px]:w-[300px] max-md:overflow-x-auto max-md:overflow-y-hidden"
         layout
         transition={{
           type: "spring",
@@ -95,54 +65,42 @@ function ImageCarousel(props: Props) {
           damping: 30,
         }}
       >
-        <div
-          onPointerDown={handleStart}
-          onPointerUp={handleEnd}
-          onTouchStart={handleStart}
-          onTouchEnd={handleEnd}
-          className="w-full overflow-hidden flex justify-center py-7"
+        <motion.div
+          className="flex flex-col max-md:flex-row items-center gap-0 py-0"
+          transition={{ duration: 0.8, ease: [0.25, 0.8, 0.5, 1] }}
         >
-          <motion.div
-            className="flex items-center"
-            animate={{
-              // Aquí calculamos el desplazamiento dinámico
-              x: `calc(50% - ${activeIndex * (100 / photos.length)}%)`,
-            }}
-            transition={{ duration: 0.8, ease: [0.25, 0.8, 0.5, 1] }}
-          >
-            {photos.map((photo, index) => (
-              <motion.div
-                key={index}
-                className="flex-shrink-0 flex items-center justify-center"
-                onClick={() => setActiveIndex(index)} // Mover al hacer click en la imagen
-                initial={{ scale: 0.9, opacity: 0.5 }} // Escala y opacidad inicial
-                animate={{
-                  scale: activeIndex === index ? 1.2 : 1, // Escala suave para el elemento activo
-                  zIndex: activeIndex === index ? 30 : 10,
-                  opacity: activeIndex === index ? 1 : 0.5, // Transición de opacidad
-                }}
-                transition={{
-                  duration: 0.6,
-                  ease: [0.25, 0.8, 0.5, 1],
-                }}
-              >
-                <div className="w-64 h-auto flex items-center justify-center py-2">
-                  <div className="w-full h-full relative overflow-hidden rounded-lg">
-                    <img
-                      src={photo}
-                      alt={`Generated image ${index + 1}`}
-                      className="w-full max-sm:w-[70%] h-full object-cover"
-                      onLoad={handleImageLoad}
-                      onError={handleImageError}
-                    />
-                  </div>
+          {photos.map((photo, index) => (
+            <motion.div
+              key={index}
+              className={`flex-shrink-0 flex items-center justify-center cursor-pointer w-auto`}
+              onClick={() => setActiveIndex(index)} // Cambiar imagen al hacer clic
+              initial={{ scale: 0.9 }}
+              animate={{
+                scale: activeIndex === index ? 0.9 : 0.8,
+                zIndex: activeIndex === index ? 30 : 20,
+              }}
+              transition={{
+                duration: 0.6,
+                ease: [0.25, 0.8, 0.5, 1],
+              }}
+            >
+              <div className="w-64 h-auto flex items-center justify-center py-0">
+                <div className="w-full h-full relative overflow-hidden max-md:rounded-none rounded-lg m-0">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={photo}
+                    alt={`Generated image ${index + 1}`}
+                    className="h-full w-full max-md:h-[230px] max-md:w-[230px] object-cover m-0"
+                    onLoad={handleImageLoad}
+                    onError={handleImageError}
+                  />
                 </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
       </motion.div>
-    </>
+    </section>
   );
 }
 

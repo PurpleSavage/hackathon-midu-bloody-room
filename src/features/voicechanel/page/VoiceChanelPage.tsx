@@ -3,7 +3,6 @@ import Header from "@/features/landing/components/Header";
 import Image from "next/image";
 import UploadBtn from "@/features/voicechanel/components/UploadBtn";
 import UploadedPhoto from "../components/UploadedPhoto";
-import CountData from "../components/CountData";
 function VoiceChanelPage() {
   return (
     <div className="min-h-screen bg-white overflow-hidden">
@@ -34,8 +33,7 @@ function VoiceChanelPage() {
 
       <div className="absolute z-10 flex flex-col bottom-0 right-0 left-0 top-0">
         <Header />
-        <div className="grow flex flex-col justify-center items-center py-5">
-          <CountData />
+        <div className="grow flex flex-col justify-center items-center">
           <UploadedPhoto />
         </div>
         <UploadBtn />
