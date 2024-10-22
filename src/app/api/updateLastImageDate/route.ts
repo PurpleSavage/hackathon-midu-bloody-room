@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { getAuth } from "firebase-admin/auth";
 import { initAdmin } from "@/service/intiFirebase";
-import { getFirestore, FieldValue } from "firebase-admin/firestore";
+import { getFirestore } from "firebase-admin/firestore";
 import { NextResponse } from "next/server";
 export async function PATCH(req: Request) {
   const body = await req.json();
@@ -9,7 +9,6 @@ export async function PATCH(req: Request) {
 
   const cookie = cookies();
   const token = cookie.get("auth-token");
-  //console.log("Token recibido:", token); // Verifica el valor del token
   console.log("Data from body", message);
 
   if (!token) {
@@ -49,9 +48,8 @@ export async function PATCH(req: Request) {
     }
 
     const now = new Date();
-    const is24HoursPassed = lastImageAt
-      ? now.getTime() - lastImageAt.getTime() > 24 * 60 * 60 * 1000
-      : true;
+    const is24HoursPassed =
+      now.getTime() - lastImageAt.getTime() > 24 * 60 * 60 * 1000;
 
     // Verificar si han pasado 24 horas desde la última imagen
     if (!is24HoursPassed) {

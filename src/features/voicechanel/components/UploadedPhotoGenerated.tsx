@@ -115,7 +115,6 @@ function UploadedPhotoGenerated({ id, micPrompt }: Props) {
   const handleImageLoad = async () => {
     if (hasImageLoaded || !imageUrl) return; // Asegurarse de que solo se ejecute una vez
     if (photos.includes(imageUrl)) {
-      //console.log("La imagen ya ha sido guardada previamente.");
       setLoading(false);
       return;
     }
@@ -127,17 +126,17 @@ function UploadedPhotoGenerated({ id, micPrompt }: Props) {
         setAttemptTokens(attemptTokens - 1);
         // Agregar la imagen al store
         addPhoto(imageUrl);
-        setLoading(true);
         // Guardar la imagen en Firestore
         await saveImageToFirestore(imageUrl);
+        setLoading(true);
         return;
       }
       setAttemptTokens(attemptTokens - 1);
       // Agregar la imagen al store
       addPhoto(imageUrl);
-      setLoading(true);
       // Guardar la imagen en Firestore
       await saveImageToFirestore(imageUrl);
+      setLoading(true);
     } catch (error) {
       console.error("Error al guardar la imagen:", error);
     }
@@ -150,7 +149,7 @@ function UploadedPhotoGenerated({ id, micPrompt }: Props) {
 
       if (!response.ok && response.status === 423) {
         console.log("Imagen aún generándose. Reintentando...");
-        setTimeout(checkImageStatus, 5000); // Reintentar después de 5 segundos
+        setTimeout(checkImageStatus, 2000); // Reintentar después de 5 segundos
       } else if (!response.ok) {
         handleImageError(); // Manejar otros errores
       } else {
@@ -159,6 +158,8 @@ function UploadedPhotoGenerated({ id, micPrompt }: Props) {
     } catch (error) {
       console.error("Error al cargar la imagen: ", error);
       handleImageError(); // Manejar errores de red
+    } finally {
+      setLoading(false);
     }
   };
   // useEffect para chequear el estado de la imagen al montar o cuando cambie la URL
@@ -180,26 +181,32 @@ function UploadedPhotoGenerated({ id, micPrompt }: Props) {
   }, [hasImageLoaded]);
 
   return (
-    <div className="flex flex-col gap-5 items-center justify-center w-full h-full py-3">
+    <div className="relative flex flex-col gap-5 items-center justify-center w-full h-full py-3">
       {loading && imageUrl ? (
         // Mostrar loader mientras la imagen está cargando
-        <div className="flex flex-col items-center justify-center w-11/12 h-full rounded-lg">
-          <PiSpinnerBold className="animate-spin text-red-800 text-5xl mb-4" />
-          <div className={`text-red-800 ${nosifer.className}`}>
-            Generating image...{" "}
+        <div className="fixed top-0 bottom-0 right-0 left-0 bg-slate-200/50 z-40">
+          <div className="flex flex-col items-center justify-center w-11/12 h-full rounded-lg">
+            <PiSpinnerBold className="animate-spin text-red-800 text-5xl mb-4" />
+            <div className={`text-red-800 ${nosifer.className}`}>
+              Generating image...{" "}
+            </div>
           </div>
         </div>
       ) : showGeneratedMessage ? (
         // Mostrar mensaje cuando la imagen esté generada por 5 segundos
-        <div className={`text-green-400 ${nosifer.className}`}>
-          Image generated!{" "}
+        <div className="fixed top-0 bottom-0 right-0 left-0 bg-slate-200/50 z-40">
+          <div className={`text-green-400 ${nosifer.className}`}>
+            Image generated!{" "}
+          </div>
         </div>
       ) : (
         // Mostrar error si no se puede cargar la imagen después de varios intentos
         !imageUrl && (
-          <div className={`text-red-800 ${nosifer.className} text-lg`}>
-            <p>The image could not be loaded.</p>
-            <p>Reload this page</p>
+          <div className="fixed top-0 bottom-0 right-0 left-0 bg-slate-200/50 z-40">
+            <div className={`text-red-800 ${nosifer.className} text-lg`}>
+              <p>The image could not be loaded.</p>
+              <p>Reload this page</p>
+            </div>
           </div>
         )
       )}

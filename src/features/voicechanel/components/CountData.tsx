@@ -3,15 +3,13 @@ import useImageStore from "@/stores/imageStore/image.store";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
-
-
 function CountData() {
   const [lastImageAt, setLastImageAt] = useState<Date | null>(null);
   const [timeRemaining, setTimeRemaining] = useState<string>("Calculando...");
   const photos = useImageStore((state) => state.photos);
   const attemptTokens = useImageStore((state) => state.attemptTokens);
   const setAttemptTokens = useImageStore((state) => state.setAttemptTokens);
-  const pathname= usePathname()
+  const pathname = usePathname();
 
   const calculateTimeRemaining = (lastDate: Date) => {
     const now = new Date();
@@ -19,14 +17,14 @@ function CountData() {
 
     // Comprobamos que el tiempo no es negativo
     if (timeDiffMs < 0) {
-      return "En unos segundos...";
+      return "In a few seconds...";
     }
 
     const timeDiffHrs = 24 - timeDiffMs / (1000 * 60 * 60); // Diferencia en horas
 
     // Si el tiempo restante es negativo o cero, ya pasaron 24h
     if (timeDiffHrs <= 0) {
-      return "En unos segundos...";
+      return "In a few seconds...";
     }
 
     if (timeDiffHrs >= 1) {
@@ -39,6 +37,8 @@ function CountData() {
 
   //inicializa con la verificacion si es que ya pasaron las 24 horas o si lastImageAt es null y actualiza el dato
   useEffect(() => {
+    const authStore = localStorage.getItem("authStore");
+    if (!authStore) return;
     if (attemptTokens > 0) return;
     const fetchUpdateLastImage = async () => {
       const response = await fetch("/api/updateLastImageDate", {
@@ -55,16 +55,16 @@ function CountData() {
       }
     };
     fetchUpdateLastImage();
-  }, []);
+  }, [attemptTokens]);
 
   //Inicializa el dato de lastImageAt
   useEffect(() => {
+    const authStore = localStorage.getItem("authStore");
+    if (!authStore) return;
     const fetchLastImageAt = async () => {
       const response = await fetch("/api/getUserData");
       if (response.ok) {
         const data = await response.json();
-        // console.log("fecha", data.lastImageAt);
-        // console.log("intentos restantes", data.attemptTokens);
         setAttemptTokens(data.attemptTokens);
         if (data.lastImageAt) {
           // Convertir los segundos y nanosegundos de Firebase a una fecha válida
@@ -97,33 +97,34 @@ function CountData() {
   }, [lastImageAt]);
   return (
     <>
-      {
-        pathname !=='/'? 
-          <div className="">
-            {attemptTokens === 0 || attemptTokens === null ? (
-              <div className="flex items-center justify-between text-nowrap flex-col">
-                {lastImageAt !== null ? (
-                  <p className="font-medium text-xl text-black">
-                    {" "}
-                    {`Reload: ${timeRemaining}`}
-                  </p>
-                ) : null}
+      {pathname !== "/" ? (
+        <div className="">
+          {attemptTokens === 0 || attemptTokens === null ? (
+            <div className="flex items-center justify-between text-nowrap flex-col">
+              {lastImageAt !== null ? (
                 <p className="font-medium text-xl text-black">
-                  No <span className="font-bold text-red-600">credits! </span>
+                  {" "}
+                  {`Reload: ${timeRemaining}`}
                 </p>
-              </div>
-            ) : (
-              <div className="flex items-center justify-center text-nowrap">
-                <p className="font-medium text-xl text-black">
-                  {attemptTokens === 1 ? `Credit ` : `Credits `}
-                  <span className="font-bold text-red-800">
-                    {attemptTokens === 1 ? `${attemptTokens}` : `${attemptTokens}`}
-                  </span>
-                </p>
-              </div>
-            )}
-          </div>:null
-      }
+              ) : null}
+              <p className="font-medium text-xl text-black">
+                No <span className="font-bold text-red-600">credits! </span>
+              </p>
+            </div>
+          ) : (
+            <div className="flex items-center justify-center text-nowrap">
+              <p className="font-medium text-xl text-black">
+                {attemptTokens === 1 ? `Credit ` : `Credits `}
+                <span className="font-bold text-red-800">
+                  {attemptTokens === 1
+                    ? `${attemptTokens}`
+                    : `${attemptTokens}`}
+                </span>
+              </p>
+            </div>
+          )}
+        </div>
+      ) : null}
     </>
   );
 }
