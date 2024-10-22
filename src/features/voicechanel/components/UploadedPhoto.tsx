@@ -65,9 +65,9 @@ function UploadedPhoto() {
             </div>
           ) : (
             // Mostrar placeholder si no hay imagen subida ni fotos en el carrusel
-            <div className="bg-white border-red-800 border-4 w-1/2 rounded-lg h-full flex flex-col items-center justify-center">
+            <div className="bg-white border-red-800 border-4 w-[340px] rounded-lg h-96 flex flex-col items-center justify-center">
               <FaImage size={80} className="text-red-800 mb-4" />
-              <div className={`text-red-800 text-lg text-center ${nosifer.className}`}>Empieza a subir imagenes</div>
+              <div className={`text-red-800 text-lg text-center ${nosifer.className}`}>Start uploading images</div>
             </div>
           )}
         </div>
