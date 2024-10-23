@@ -16,7 +16,7 @@ export default function SectionModel() {
 
      
     return (
-        <section className='h-screen w-full flex flex-col relative items-center justify-center overflow-hidden' >
+        <section className=' h-screen w-full flex flex-col relative items-center justify-center overflow-hidden' >
             <motion.div
                 animate={inView && { background: inView ? "#000000" : "#ffffff" }} // Cambiar el fondo según la vista
                 transition={{
@@ -88,80 +88,89 @@ export default function SectionModel() {
                 </AnimatePresence>
 
                 <AnimatePresence>
-                    {isClicked && ( // Renderiza el botón solo si no está clickeado
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.6 }}
-                            animate={{
-                                opacity: 1,
-                                borderRadius: isClickScreen ? 0 : 400,
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                scale: isClickScreen ? 1 : 0.6, // Cambia la escala solo si isClickScreen es verdadero
-                                width: '100%',
-                                height: '100%',
-                                background: "#ffffff",
+    {isClicked && ( // Renderiza el botón solo si no está clickeado
+        <motion.div
+            initial={{ opacity: 0, scale: 0.6 }}
+            animate={{
+                opacity: 1,
+                borderRadius: isClickScreen ? 0 : 400,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                scale: isClickScreen ? 1 : 0.6, // Cambia la escala solo si isClickScreen es verdadero
+                width: '100%',
+                height: '100%',
+                background: "#ffffff",
+            }}
+            exit={{ opacity: 0, scale: 0.7 }}
+            ref={ref}
+            onClick={() => setIsClickScreen(true)}
+            transition={{
+                duration: 0.5,
+                ease: "easeInOut",
+                delay: 0.5
+            }}
+            className={`flex max-md:flex-col items-center max-md:pb-5 p-4 cursor-pointer`}
+        >
+            {!isClickScreen && (
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 0.8 }}  // Opacidad del fondo
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black text-white p-4 max-md:text-center rounded-lg z-30"
+                >
+                    <span className="text-4xl font-bold">Click here</span> {/* Aumentar tamaño */}
+                </motion.div>
+            )}
 
-                            }}
-                            exit={{ opacity: 0, scale: 0.7 }}
-                            ref={ref}
-                            onClick={() => setIsClickScreen(true)}
-                            transition={{
-                                duration: 0.5,
-                                ease: "easeInOut",
-                                delay: 0.5
-                            }}
-                            className="flex max-md:flex-col items-center max-md:pb-5 p-4 cursor-pointer"
-                        >
-                            <AnimatePresence>
-                                {isClickScreen && (
-                                    <motion.div 
-                                    initial={{ opacity: 0, scale: 0.6 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    exit={{ opacity: 0, scale: 0.6 }}
-                                    transition={{
-                                        duration: 0.3,
-                                        ease: "easeInOut",
-                                        delay: 0.5
-                                    }}
-                                    >
-                                        <div className={`${nosifer.className} text-black w-[500px] max-md:flex max-md:flex-col max-md:items-center max-md:justify-center max-md:gap-4`}>
-                                            <span className="text-3xl mt-10">Bloodyroom</span>
-                                            <p className="max-md:text-center max-md:text-lg max-md:font-bold max-md::flex max-md:flex-wrap max-md:w-64">
-                                                An interactive voice chat web app where you can upload a photo, activate your microphone,
-                                                and request your own custom horror-themed montage. Unleash your imagination and let the fear begin!
-                                            </p>
-                                        </div>
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
+            <AnimatePresence>
+                {isClickScreen && (
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.6 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.6 }}
+                        transition={{
+                            duration: 0.3,
+                            ease: "easeInOut",
+                            delay: 0.5
+                        }}
+                    >
+                        <div className={`${nosifer.className} text-black w-[500px] max-md:flex max-md:flex-col max-md:items-center max-md:justify-center max-md:gap-4`}>
+                            <span className="text-3xl mt-10">Bloodyroom</span>
+                            <p className="max-md:text-center max-md:text-lg max-md:font-bold max-md:flex max-md:flex-wrap max-md:w-64">
+                                An interactive voice chat web app where you can upload a photo, activate your microphone,
+                                and request your own custom horror-themed montage. Unleash your imagination and let the fear begin!
+                            </p>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
-                            <div
-                                className="relative m-10 overflow-hidden z-20  text-black flex justify-center h-[300px] w-[160px] border-4 border-black rounded-2xl bg-gray-50"
-                            >
-                                <span className="border border-black z-20 bg-black w-20 h-2 rounded-br-xl rounded-bl-xl"></span>
-                                <span className="absolute -right-2 top-14 border-4 z-20 border-black h-7 rounded-md"></span>
-                                <span className="absolute -right-2 bottom-36 border-4 z-20 border-black h-10 rounded-md"></span>
-                                <div className="flex flex-col items-center justify-end w-full bg-white absolute top-0 bottom-0">
+            <div className="relative m-10 overflow-hidden z-20 text-black flex justify-center h-[300px] w-[160px] border-4 border-black rounded-2xl bg-gray-50">
+                <span className="border border-black z-20 bg-black w-20 h-2 rounded-br-xl rounded-bl-xl"></span>
+                <span className="absolute -right-2 top-14 border-4 z-20 border-black h-7 rounded-md"></span>
+                <span className="absolute -right-2 bottom-36 border-4 z-20 border-black h-10 rounded-md"></span>
+                <div className="flex flex-col items-center justify-end w-full bg-white absolute top-0 bottom-0">
+                    <div className={styles.loader}>
+                        <span className={styles.bar}></span>
+                        <span className={styles.bar}></span>
+                        <span className={styles.bar}></span>
+                    </div>
+                    <div className="flex flex-col items-center gap-2 w-full justify-center pb-4">
+                        <div className="bg-white border-2 shadow-2xl shadow-red-500 rounded-full border-red-500 flex items-center justify-center w-10 h-10 mr-2">
+                            <IoCloudDownloadOutline color="red" size={20} />
+                        </div>
+                        <div className="p-1 bg-gray-700 rounded-full flex items-center justify-center w-7 h-7 mr-2">
+                            <FaMicrophoneSlash color="black" size={20} />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </motion.div>
+    )}
+</AnimatePresence>
 
-                                    <div className={styles.loader}>
-                                        <span className={styles.bar}></span>
-                                        <span className={styles.bar}></span>
-                                        <span className={styles.bar}></span>
-                                    </div>
-                                    <div className="flex flex-col items-center gap-2 w-full justify-center pb-4">
-                                        <div className="bg-white border-2 shadow-2xl shadow-red-500 rounded-full border-red-500 flex items-center justify-center w-10 h-10 mr-2">
-                                            <IoCloudDownloadOutline color="red" size={20} />
-                                        </div>
-                                        <div className="p-1 bg-gray-700 rounded-full flex items-center justify-center w-7 h-7 mr-2">
-                                            <FaMicrophoneSlash color="black" size={20} />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
 
 
             </motion.div>
