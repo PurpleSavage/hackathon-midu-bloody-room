@@ -4,7 +4,9 @@ import { initAdmin } from "@/service/intiFirebase";
 import { getAuth } from "firebase-admin/auth";
 import { headers } from "next/headers";
 import { cookies } from "next/headers";
+import { SignJWT } from 'jose';
 
+const secret = new TextEncoder().encode(process.env.NEXT_JWT_SECRET);
 export async function POST(req: Request) {
   const body = await req.json();
   const { user } = body;
@@ -42,9 +44,13 @@ export async function POST(req: Request) {
           createdAt: new Date(),
         });
     }
+    const newtoken = await new SignJWT({ uid: user.uid })
+    .setProtectedHeader({ alg: 'HS256' })
+    .setExpirationTime('30d')
+    .sign(secret);
     cookie.set({
       name: "auth-token",
-      value: token,
+      value: newtoken,
       httpOnly: true,
       path: "/",
       maxAge: 1000 * 60 * 60 * 24 * 30, // 30 días

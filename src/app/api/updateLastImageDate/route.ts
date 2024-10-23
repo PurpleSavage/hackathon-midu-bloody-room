@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { getAuth } from "firebase-admin/auth";
+import { jwtVerify } from 'jose';
 import { initAdmin } from "@/service/intiFirebase";
 import { getFirestore } from "firebase-admin/firestore";
 import { NextResponse } from "next/server";
@@ -8,7 +8,7 @@ export async function PATCH(req: Request) {
   const { message } = body;
 
   const cookie = cookies();
-  const token = cookie.get("auth-token");
+  const token = cookie.get("auth-token")?.value;
   console.log("Data from body", message);
 
   if (!token) {
@@ -17,13 +17,17 @@ export async function PATCH(req: Request) {
 
   try {
     await initAdmin();
-    const decodedtoken = await getAuth().verifyIdToken(token.value);
+    const secret = new TextEncoder().encode(process.env.NEXT_JWT_SECRET);
+    const decodedtoken = await jwtVerify(token, secret);
     if (!decodedtoken) {
       return NextResponse.json({ msg: "Token no válido" }, { status: 403 });
     }
-
+    const uid = decodedtoken.payload?.uid as string;
+    if (!uid) {
+      return NextResponse.json({ msg: "Token no válido" }, { status: 403 });
+    }
     const firestore = getFirestore();
-    const userDocRef = firestore.collection("users").doc(decodedtoken.user_id);
+    const userDocRef = firestore.collection("users").doc(uid);
     const userDoc = await userDocRef.get();
 
     if (!userDoc.exists) {

@@ -19,7 +19,7 @@ export default function Scene() {
             <Suspense fallback={<p>Cargando...</p>}>
               <Model/> 
             </Suspense>
-            <OrbitControls  enableZoom={false}/>   
+            <OrbitControls  enableZoom={false} />   
         </Canvas>
     </div> 
     

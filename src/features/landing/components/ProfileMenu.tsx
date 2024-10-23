@@ -26,12 +26,12 @@ export default function ProfileMenu() {
          photo ? 
          <div 
          onClick={()=>setOpen(!open)}
-         className="md:hidden  flex size-[60px]  items-center justify-center rounded-full p-1 bg-slate-200 relative">
+         className="md:hidden  flex w-[60px] h-[40px]  items-center justify-center rounded-full  bg-slate-200 relative">
             {
              photo && photo.length?
                <img 
                  src={photo}
-                 className="h-full w-gull rounded-full"
+                 className="w-[60px] h-[40px]   rounded-full"
                />
        
                :<TbUserOff />

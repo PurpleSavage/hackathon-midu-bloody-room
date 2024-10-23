@@ -23,12 +23,12 @@ export default function PhotoUser() {
     <div className="w-full flex justify-end gap-4">
       {
         photo ? 
-        <div className="md:flex  hidden size-[45px]   items-center justify-center rounded-full p-1 bg-slate-200">
+        <div className="md:flex  hidden w-[40px] h-[40px]   items-center justify-center rounded-full  bg-slate-200">
             {
             photo && photo.length?
               <img 
                 src={photo}
-                className="h-full w-gull rounded-full"
+                className="w-[40px] h-[40px] rounded-full"
               />
       
               :<TbUserOff />

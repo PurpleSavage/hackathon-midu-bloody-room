@@ -17,7 +17,7 @@ export default function Members() {
           <Suspense fallback={<p>Cargando...</p>}>
             <ZombieModel/>
           </Suspense>
-          <OrbitControls  enableZoom={false}/>   
+          <OrbitControls  enableZoom={false} enableRotate={false}/>   
       </Canvas>
     </div> 
   )
