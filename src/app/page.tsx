@@ -13,7 +13,7 @@ import PhotosPublic from '@/features/landing/components/PhotosPublic';
 import SectionModel from '@/features/landing/components/SectionModel';
 import { useRouter } from 'next/navigation'
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
-import Link from 'next/link';
+
 
 
 
@@ -221,18 +221,18 @@ export default function Home() {
                   </img>
                   <div className='flex flex-col gap-3 items-center justify-center w-full h-full'>
                     <p className='w-full text-center text-white  text-xs truncate'>
-                      DeyCasGuerrero
+                      Deyvis Catillo
                     </p>
                     <div className='w-full flex items-center justify-center gap-4'>
                       <div >
-                        <Link href={`https://github.com/DeyCasGuerrero`}>
+                        <a href={`https://github.com/DeyCasGuerrero`} target="_blank" rel="noopener noreferrer">
                           <FaGithub size={30} className='text-white hover:text-red-800 p-1' />
-                        </Link>
+                        </a>
                       </div>
                       <div >
-                        <Link href={`https://www.linkedin.com/in/jeferson-castillo-276774323/`}>
+                        <a href={`https://www.linkedin.com/in/jeferson-castillo-276774323/`} target="_blank" rel="noopener noreferrer">
                           <FaLinkedinIn size={25} className='text-white hover:text-red-800 p-1' />
-                        </Link>
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -247,18 +247,18 @@ export default function Home() {
                   </img>
                   <div className='flex flex-col gap-3 items-center justify-center w-full h-full'>
                     <p className='w-full text-xs text-white   text-center'>
-                      Ariano2700
+                      Ariano Alban
                     </p>
                     <div className='w-full flex items-center justify-center gap-4'>
                       <div >
-                        <Link href={`https://github.com/Ariano2700`}>
+                        <a href={`https://github.com/Ariano2700`} target="_blank" rel="noopener noreferrer">
                           <FaGithub size={30} className='text-white hover:text-red-800 p-1' />
-                        </Link>
+                        </a>
                       </div>
                       <div >
-                        <Link href={`https://www.linkedin.com/in/ariano-selim-alban-gomez-073325332/`}>
+                        <a href={`https://www.linkedin.com/in/ariano-selim-alban-gomez-073325332/`} target="_blank" rel="noopener noreferrer">
                           <FaLinkedinIn size={25} className='text-white hover:text-red-800 p-1' />
-                        </Link>
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -273,18 +273,18 @@ export default function Home() {
                   </img>
                   <div className='flex flex-col gap-3 items-center justify-center w-full h-full'>
                     <p className='w-full text-xs text-white  text-center'>
-                      PurpleSavage
+                      Jean Paul
                     </p>
                     <div className='w-full flex items-center justify-center gap-4'>
                       <div >
-                        <Link href={`https://github.com/purplesavage`}>
+                        <a href={`https://github.com/purplesavage`} target="_blank" rel="noopener noreferrer">
                           <FaGithub size={30} className='text-white hover:text-red-800 p-1' />
-                        </Link>
+                        </a>
                       </div>
                       <div >
-                        <Link href={`https://www.linkedin.com/in/jean-paul-zurita-palomino-0411072a3/`}>
+                        <a href={`https://www.linkedin.com/in/jean-paul-zurita-palomino-0411072a3/`} target="_blank" rel="noopener noreferrer">
                           <FaLinkedinIn size={25} className='text-white hover:text-red-800 p-1' />
-                        </Link>
+                        </a>
                       </div>
                     </div>
                   </div>
