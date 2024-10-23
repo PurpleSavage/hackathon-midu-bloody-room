@@ -256,7 +256,7 @@ export default function Home() {
                         </Link>
                       </div>
                       <div >
-                        <Link href={`www.linkedin.com/in/ariano-selim-alban-gomez-073325332`}>
+                        <Link href={`https://www.linkedin.com/in/ariano-selim-alban-gomez-073325332/`}>
                           <FaLinkedinIn size={25} className='text-white hover:text-red-800 p-1' />
                         </Link>
                       </div>
@@ -282,7 +282,7 @@ export default function Home() {
                         </Link>
                       </div>
                       <div >
-                        <Link href={`www.linkedin.com/in/jean-paul-zurita-palomino-0411072a3`}>
+                        <Link href={`https://www.linkedin.com/in/jean-paul-zurita-palomino-0411072a3/`}>
                           <FaLinkedinIn size={25} className='text-white hover:text-red-800 p-1' />
                         </Link>
                       </div>
