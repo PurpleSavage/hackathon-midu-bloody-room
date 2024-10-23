@@ -23,7 +23,7 @@ export default function Header() {
       </Link>
       <div className="grow flex items-center justify-between md:justify-end px-4 md:pr-10 gap-2 py-2 ">
         <CountData />
-        <PhotoUser />
+        <PhotoUser /> 
         <ProfileMenu/>
       </div>
     </header>

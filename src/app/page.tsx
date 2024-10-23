@@ -205,8 +205,11 @@ export default function Home() {
           <section className='flex overflow-hidden flex-col items-center justify-center px-4  py-20 md:px-14 '>
             <h3 className={`text-center ${nosifer.className} md:text-4xl text-white text-3xl`}>Collaborators</h3>
             <div className='flex flex-col md:flex-row  items-center gap-1 w-full '>
-              <div className='flex w-full md:w-1/2 justify-center md:justify-end '>
+              <div className='flex w-full md:w-1/2 justify-center md:justify-end relative'>
                 <Members />
+                <div className='absolute bottom-0 top-0 left-0 right-0'>  
+
+                </div>
               </div>
               <div className='flex flex-col items-start gap-4 md:w-1/2  h-auto p-1 w-full '>
                 <div className={`${nosifer.className} bg-black flex items-center border px-4 py-4 w-full  md:w-[400px] rounded border-red-800 `}>
